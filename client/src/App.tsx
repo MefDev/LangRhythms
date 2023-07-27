@@ -1,18 +1,9 @@
 import React, {useState, useEffect} from 'react'
-
-const [data, setData] = useState([{}])
-useEffect(() => {
-  fetch('/home')
-  .then(res => res.json())
-  .then(data => {
-    setData(data)
-    console.log(data)
-  })
-},[])
-
+import NavBar from './assets/components/navbar'
+import './App.css'
 function App() {
   return (
-    <div></div>
+   <NavBar/>
   )
 }
 

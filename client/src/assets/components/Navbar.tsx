@@ -18,7 +18,6 @@ function NavBar(){
                 <ul>
                     <li><a href="#">Contact Us</a></li>
                     <li>|</li>
-                     
                     <li><a href="#" className="sign-up">sign up</a></li>
                     <li><a href="#" className="sign-in">Log in</a></li>
                 </ul>

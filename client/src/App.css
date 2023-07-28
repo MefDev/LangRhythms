@@ -3,7 +3,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap&family=Open+Sans:wght@300;700');
 /*-------------  Variables -------------*/
 * {
   --white: #FFF;
@@ -23,10 +23,8 @@ p, li, a{
 .main-nav a {
   font-weight: 600;
   font-size: 16px;
-  
-
-  
 }
+
 ul{
   display: flex;
   
@@ -45,16 +43,20 @@ ul{
 }
 
 
+
+
+
 /*-------------  Classes styles -------------*/
 
 .main-nav{
-  width: 1440px;
+  position: relative;
   height: 100%;
   background: var(--white);
   border-bottom: 1px solid var(--lightGray);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 2;
 }
 .logo
 {
@@ -76,7 +78,80 @@ ul{
 .sign-in{
   padding: .25rem 1.25rem;
   background: var(--yellow);
-  box-shadow: 2px 4px 15px #ffd773;
+  box-shadow: 2px 4px 15px var(--yellow);
   border-radius: 0 25%;
 }
+.main-content
+{
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 20%, rgba(82,95,225,1) 450%);
+  height: 1000px;
+}
+.pattern1
+{
+  position: relative;
+  top: -5rem;
+  left: -2.5rem;
+  z-index: 1;
+}
+.pattern2{
+  position: absolute;
+  right: 0;
+  top: 25rem;
+  
+}
+.hero-text{
+  text-align: center;
+  margin: 0 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: -15rem;
+ 
+}
+.hero-text p, .btn{
+  position: relative;
+  top: -9rem;
+}
+.hero-text p{
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  line-height: 160%;
+  width: 50%;
+  
+  
+  margin-bottom: 1.25rem;
+}
+.hero-text h1{
+  margin-bottom: 0;
+}
+.circle-ease{
+  position: relative;
+  top: -6rem;
+  right: -4.5rem;
+  width: 250px;
+  height: 150px;
+  
+  
+  
+}
+.ease-span
+{
+  margin-left: 1.75rem;
+}
+.btn{
+  background: var(--primary-100);
+  color: var(--white);
+  border-radius: 38px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  letter-spacing: -2%;
+  line-height: 150%;
+  font-size: small;
+  padding: .85rem 1.5rem;
+  box-shadow: 2px 4px 15px var(--primary-100);
+}
+
+
 

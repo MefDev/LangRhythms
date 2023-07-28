@@ -10,13 +10,18 @@
 * {
   --white: #FFF;
   --primary-100: #525FE1;
+  --primary-light: #DEE1FA;
   --nearBlack: #1A202C;
   --gray-1: #333;
   --gray-2: #4F4F4F;
   --gray-3: #828282;
-  --yellow: #FFCF59;
+  --yellow: #FFCF59;;
   --mediumGray: #858282;
   --lightGray: #EEE;
+  --blue-100: rgba(82, 95, 225, 20%);
+  --secondary-400: rgba(152, 71, 255, 20%);
+  --secondary-100: rgba(255, 96, 168, 20%);
+
 }
 /*-------------  Global styles -------------*/
 
@@ -169,7 +174,7 @@ ul{
 /*-------------  Instruction section -------------*/
 
 
-.instruction-container, .chose-container{
+.instruction-container, .chose-container, .feature-container{
 position: relative;
 top: -20rem;
 display: flex;
@@ -181,7 +186,7 @@ text-align: center;
 .instruction-container h2, .instruction-container h5{
   font-weight: bold;
 }
-.instruction-container h5, .chose-container h5{
+.instruction-container h5, .chose-container h5, .feature-container h5{
   
     color: var(--primary-100);
     font-size: 1.25rem;
@@ -201,7 +206,6 @@ text-align: center;
 .main-instruction-container{
   display: flex;
   justify-content: space-around;
-  
   padding: 2rem 4rem;
    
   
@@ -234,10 +238,10 @@ text-align: center;
   left: -8rem;
 }
 
+/*-------------  Chose section -------------*/
 
 
-
-.chose-steps-container{
+.chose-steps-container, .feature-container{
   display: flex;
   justify-content: column;
   text-align: left;
@@ -255,7 +259,7 @@ text-align: center;
   font-size: 12px;
   margin-bottom: 0;
 }
-.chose-steps-container p{
+.chose-steps-container p, .feature-container p{
 color: var(--gray-3);
 }
 
@@ -275,7 +279,44 @@ img.people-icon, img.star-icon, img.click-icon{
   top: -.75rem;
 }
 
-  
+/*-------------  Feature section -------------*/  
 
+.feature-container{
+  margin-top: 2rem;
+}
+.feature-container h2{
+  font-size: 2rem;
+  text-align: center;
+  width: 45%;
+}
+.card-container{
+  display: flex;
+  flex-direction: row;
+}
+.card img{
+  width: 50px;
+}
+.card{
+  width: 225px;
+  height: 200px;
+  border-radius: .5rem;
+  padding: 1.75rem 0 0 .75rem;
+  margin-right: 2rem;
+  
+}
+.card.primaryLight{
+  background: var(--blue-100);
+  box-shadow: 2px 2px 5px var(--blue-100);
+}
+.card.seconday-400 {
+  background: var(--secondary-400);
+  box-shadow: 2px 2px 5px var(--secondary-400);
+}
+.card.seconday-100{
+  background: var(--secondary-100);
+  box-shadow: 2px 2px 5px var(--secondary-100);
+  
+}
+ 
 
 

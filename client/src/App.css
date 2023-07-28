@@ -4,6 +4,8 @@
 @import "tailwindcss/utilities";
 
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap&family=Open+Sans:wght@300;700');
+
+
 /*-------------  Variables -------------*/
 * {
   --white: #FFF;
@@ -23,6 +25,10 @@ p, li, a{
 .main-nav a {
   font-weight: 600;
   font-size: 16px;
+}
+
+p, h1, h6{
+  font-family: 'Lato', sans-serif;
 }
 
 ul{
@@ -85,7 +91,6 @@ ul{
 {
   background: rgb(255,255,255);
   background: linear-gradient(90deg, rgba(255,255,255,1) 20%, rgba(82,95,225,1) 450%);
-  height: 1000px;
 }
 .pattern1
 {
@@ -100,6 +105,9 @@ ul{
   top: 25rem;
   
 }
+
+/*-------------  Hero section -------------*/
+
 .hero-text{
   text-align: center;
   margin: 0 25%;
@@ -115,7 +123,6 @@ ul{
   top: -9rem;
 }
 .hero-text p{
-  font-family: 'Lato', sans-serif;
   font-weight: 300;
   line-height: 160%;
   width: 50%;
@@ -132,9 +139,6 @@ ul{
   right: -4.5rem;
   width: 250px;
   height: 150px;
-  
-  
-  
 }
 .ease-span
 {
@@ -151,6 +155,82 @@ ul{
   font-size: small;
   padding: .85rem 1.5rem;
   box-shadow: 2px 4px 15px var(--primary-100);
+}
+.ellipse{
+  display: flex;
+  justify-content: start;
+  width: 650px;
+  position: relative;
+  top: -8rem;
+  left: 1rem;
+}
+
+/*-------------  Instruction section -------------*/
+
+
+.instruction-container{
+position: relative;
+top: -30rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+
+}
+.instruction-container h2, .instruction-container h5{
+  font-weight: bold;
+}
+.instruction-container h5{
+  
+    color: var(--primary-100);
+    font-size: 1.25rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    
+  
+}
+.instruction-container h2{
+  
+  font-size: 2.5rem;
+  width: 35%;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.main-instruction-container{
+  display: flex;
+  justify-content: space-around;
+  
+  padding: 2rem 4rem;
+   
+  
+}
+
+.main-instruction-container h6{
+  font-weight: 600;
+  font-size: 1rem;
+  
+  color: var(--gray-1);
+  margin: 0 35%;
+  padding: 0;
+
+}
+.main-instruction-container p{
+  color: var(--gray-2);
+  margin: .75rem 25%;
+  line-height: 1.25rem;
+  
+}
+.arrows-container{
+  position: relative;
+  top: 10rem;
+  left: 2rem;
+  width: 50%;
+  
+}
+.firstArrow{
+  position: relative;
+  left: -8rem;
 }
 
 

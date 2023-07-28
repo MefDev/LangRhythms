@@ -13,6 +13,7 @@
   --nearBlack: #1A202C;
   --gray-1: #333;
   --gray-2: #4F4F4F;
+  --gray-3: #828282;
   --yellow: #FFCF59;
   --mediumGray: #858282;
   --lightGray: #EEE;
@@ -168,9 +169,9 @@ ul{
 /*-------------  Instruction section -------------*/
 
 
-.instruction-container{
+.instruction-container, .chose-container{
 position: relative;
-top: -30rem;
+top: -20rem;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -180,7 +181,7 @@ text-align: center;
 .instruction-container h2, .instruction-container h5{
   font-weight: bold;
 }
-.instruction-container h5{
+.instruction-container h5, .chose-container h5{
   
     color: var(--primary-100);
     font-size: 1.25rem;
@@ -189,7 +190,7 @@ text-align: center;
     
   
 }
-.instruction-container h2{
+.instruction-container h2, .chose-container h2{
   
   font-size: 2.5rem;
   width: 35%;
@@ -232,6 +233,49 @@ text-align: center;
   position: relative;
   left: -8rem;
 }
+
+
+
+
+.chose-steps-container{
+  display: flex;
+  justify-content: column;
+  text-align: left;
+  margin: 0 15%;
+  
+}
+.section{
+  padding: 2rem;
+}
+.chose-container {
+ padding-top: 5rem;
+}
+.chose-steps-container h6{
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.chose-steps-container p{
+color: var(--gray-3);
+}
+
+.align-section{
+  align-self: center;
+  padding: 0 5rem;
+}
+.people-icon, .star-icon, .click-icon{
+  float: left;
+}
+img.people-icon, img.star-icon, img.click-icon{
+  width: 95px;
+}
+.chose-steps-container h6, .chose-steps-container p{
+  position: relative;
+  left: .5rem;
+  top: -.75rem;
+}
+
+  
 
 
 

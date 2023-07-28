@@ -186,7 +186,7 @@ text-align: center;
 .instruction-container h2, .instruction-container h5{
   font-weight: bold;
 }
-.instruction-container h5, .chose-container h5, .feature-container h5{
+.instruction-container h5, .chose-container h5, .feature-container h5, .testimonial-container h5{
   
     color: var(--primary-100);
     font-size: 1.25rem;
@@ -195,8 +195,7 @@ text-align: center;
     
   
 }
-.instruction-container h2, .chose-container h2{
-  
+.instruction-container h2, .chose-container h2, .testimonial-container h2{
   font-size: 2.5rem;
   width: 35%;
   padding-bottom: 0;
@@ -246,7 +245,6 @@ text-align: center;
   justify-content: column;
   text-align: left;
   margin: 0 15%;
-  
 }
 .section{
   padding: 2rem;
@@ -317,6 +315,72 @@ img.people-icon, img.star-icon, img.click-icon{
   box-shadow: 2px 2px 5px var(--secondary-100);
   
 }
+
+/*-------------  Testimonial section -------------*/  
+
+
+.testimonial-container{
+  position: relative;
+  top: -10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+ 
+}
+.testimonial-container h2{
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.profile-container{ 
+  background: var(--white);
+  padding: 1.75rem;
+  border-radius: 10px;
+  width: 300px;
+  height: 150px;
+  margin-left: 2rem;
+}
+.yellow{
+  border: 1px solid var(--yellow);
+  position: relative;
+  top: -.5rem;
+  
+}
+
+.sm{
+  width: 280px;
+  height: 145px;
+}
+.profile-mainContainer{
+  display: flex;
+}
+.icon-container{
+  display: flex;
+  justify-content: space-between;
+ 
+}
+.span{
+  display: flex;
+  color: #0B132A;
+  font-size: 10px;
+}
+.profile1{
+  margin-right: .75rem;
+}
+.profile1-name-nation{
+  display: flex;
+  
+}
+.profile1-name-nation h6, .profile1-name-nation span{
+  margin: 0;
+}
+.profile1
+{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
  
 
 

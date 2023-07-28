@@ -8,10 +8,9 @@ export default function instruction(){
         <section className="instruction-container">
                 <h5>How it works</h5>
                 <h2>We make learning simple and straightforward</h2>
-
                 <div className="arrows-container">
-                <img className="firstArrow" src={arrow} alt="arrow image" />
-                <img className="secondArrow" src={arrow} alt="arrow image" />
+                    <img className="firstArrow" src={arrow} alt="arrow image" />
+                    <img className="secondArrow" src={arrow} alt="arrow image" />
                 </div>
                 <div className="main-instruction-container">
                     <div>

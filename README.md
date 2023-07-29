@@ -88,7 +88,7 @@ Contributing to LangRhythms doesn't require any prerequisites. Few resources tha
 ### 2. How to contribute?
 
 To Contribute:
-Read contributing documentation <https://youtu.be/KqjqClEr5b0>
+Read contributing documentation
 To Install
 - Fork and clone both repos
 - npm install on each to install dependencies

@@ -14,7 +14,7 @@ Welcome to LangRhythms, a foreign language learning website for language learner
 LangRhythms will help learners learn how to write and pronouce the different Amazigh and Arabic letters and help them advance their comprehension of the Moroccan Language Darija by accessing thousands of intercative and fun lessons.
 ### Why did you create this website?
 We wanted to make a website where language learners (mostly beginner) can learn Arabic, Darija and Amazigh, because we did not find resources that help learners learn how to write letters.
-As a result, I thought of building one that do just that.
+As a result, we thought of building one that do just that.
 ### What did you use to build this website?
 I used Python (Flask) for the backend, SQLite3 for database management, React for frontend.
 

@@ -5,8 +5,6 @@ Welcome to LangRhythms, a foreign language learning website for language learner
 #### Description:
   
      Welcome to LangRhythms, a foreign language learning website for Learning Tamazight, Darija, and Arabic.
-
-
 ![Photo of the website](./client/public/landPage.png)
 
 

@@ -10,7 +10,7 @@ export default {
         'secondary-100': '#FF60A8',
         'secondary-200': '#F66742',
         'secondary-300': '#A7CE4A',
-        'secondary-400': '#9848FF'
+        'secondary-400': '#9848FF',
       },
       fontFamily: {
         raleway: ['Raleway', 'sans-serif'],

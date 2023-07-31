@@ -4,12 +4,12 @@ import pattern2 from '/pattern2.png'
 
 export default function Pattern() {
   return (
-   <section className='py-20 relative overflow-hidden'>
-    <div className="mx-auto max-w-2xl text-center flex flex-col items-center">
-  <h1 className='text-3xl md:text-lg font-bold mb-4 md:mb-8 leading-normal'>
-    Unlock Moroccan Culture: Learn Darija and Tamazight with
-    <span
-      className='
+    <section className='py-20 relative overflow-hidden'>
+      <div className='mx-auto max-w-2xl text-center flex flex-col items-center'>
+        <h1 className='text-3xl md:text-lg font-bold mb-4 md:mb-8 leading-normal'>
+          Unlock Moroccan Culture: Learn Darija and Tamazight with
+          <span
+            className='
       ml-2
       relative
       z-10
@@ -36,27 +36,34 @@ export default function Pattern() {
       before:-translate-x-1/2
       before:-translate-y-1/2
       '
-    >
-      Ease!
-    </span>
-  </h1>
-  <p className='text-gray-500 leading-normal max-w-md mb-4 md:mb-8 text-sm'>
-    Dive into the rich tapestry of Moroccan culture through its vibrant
-    languages, Darija and Tamazight. Start your language journey today and
-    open doors to an enchanting new world.
-  </p>
-  <button className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-full text-white capitalize font-bold text-sm hover:bg-primary-100/90 shadow-lg'>
-    Get Started
-  </button>
-  <img
-    className='flex justify-start w-full md:w-[650px] relative top-[-4rem] left-[1rem]'
-    src={ellipse}
-    alt="ellipses' background"
-  />
-  </div>
-   <img className='absolute -top-10 -left-10' src={pattern1} alt='amazigh mosaic' />
-      <img className='absolute -right-2 bottom-20' src={pattern2} alt='amazigh mosaic' />
-</section>
-
+          >
+            Ease!
+          </span>
+        </h1>
+        <p className='text-gray-500 leading-normal max-w-md mb-4 md:mb-8 text-sm'>
+          Dive into the rich tapestry of Moroccan culture through its vibrant
+          languages, Darija and Tamazight. Start your language journey today and
+          open doors to an enchanting new world.
+        </p>
+        <button className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-full text-white capitalize font-bold text-sm hover:bg-primary-100/90 shadow-lg'>
+          Get Started
+        </button>
+        <img
+          className='flex justify-start w-full md:w-[650px] relative top-[-4rem] left-[1rem]'
+          src={ellipse}
+          alt="ellipses' background"
+        />
+      </div>
+      <img
+        className='absolute -top-10 -left-10'
+        src={pattern1}
+        alt='amazigh mosaic'
+      />
+      <img
+        className='absolute -right-2 bottom-20'
+        src={pattern2}
+        alt='amazigh mosaic'
+      />
+    </section>
   )
 }

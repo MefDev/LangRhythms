@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/Shared/Layout'
 import Home from '@/pages/Home'
 import SignIn from '@/pages/SignIn'
 import { ROUTES } from '@/utils/routes'

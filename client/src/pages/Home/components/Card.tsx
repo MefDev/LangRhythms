@@ -1,6 +1,6 @@
-import stars from '../../../../public/stars.png'
-import light from '../../../../public/light.png'
-import roule from '../../../../public/roule.png'
+import stars from '/stars.png'
+import light from '/light.png'
+import roule from '/roule.png'
 export default function Card() {
   return (
     <div className='card-container'>

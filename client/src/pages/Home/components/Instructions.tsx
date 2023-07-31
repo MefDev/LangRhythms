@@ -1,7 +1,7 @@
-import signupBtn from '../../../../public/singupBtn.png'
-import instructionBtn from '../../../../public/instruction-btn.png'
-import choseLang from '../../../../public/choseLang.png'
-import arrow from '../../../../public/arrow.png'
+import signupBtn from '/singupBtn.png'
+import instructionBtn from '/instruction-btn.png'
+import choseLang from '/choseLang.png'
+import arrow from '/arrow.png'
 export default function instruction() {
   return (
     <section className='instruction-container'>

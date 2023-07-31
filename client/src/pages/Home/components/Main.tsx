@@ -1,5 +1,5 @@
-import circle from '../../../../public/circle.png'
-import ellipse from '../../../../public/elipses-background.png'
+import circle from '/circle.png'
+import ellipse from '/elipses-background.png'
 export default function Pattern() {
   return (
     <section className='hero-text'>

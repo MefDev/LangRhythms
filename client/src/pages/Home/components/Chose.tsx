@@ -1,6 +1,6 @@
-import people from '../../../../public/people.png'
-import star from '../../../../public/star.png'
-import click from '../../../../public/click.png'
+import people from '/people.png'
+import star from '/star.png'
+import click from '/click.png'
 export default function Chose() {
   return (
     <section className='chose-container'>

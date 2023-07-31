@@ -1,5 +1,5 @@
-import pattern1 from '../../../../public/pattern1.png'
-import pattern2 from '../../../../public/pattern2.png'
+import pattern1 from '/pattern1.png'
+import pattern2 from '/pattern2.png'
 export default function Pattern() {
   return (
     <div>

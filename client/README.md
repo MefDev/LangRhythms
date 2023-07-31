@@ -1,27 +1,28 @@
-# React + TypeScript + Vite
+# Introduction
+Welcome to our Client Side of LangRhythms This README provides guidelines on how to contribute to this project effectively. As a contributor, it's crucial that you read, understand, and adhere to these guidelines to ensure the consistency and maintainability of the project.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## CSS Styling
+For styling, we're leveraging the Tailwind CSS framework. If you prefer not to intertwine CSS with HTML, feel free to separate it into a distinct folder using the @apply directive from Tailwind CSS. Here are some additional style guidelines:
 
-Currently, two official plugins are available:
+* Avoid Direct Tag Styling: Always use a class to style an HTML element. Directly styling tags can inadvertently affect other elements, causing unintended style changes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* Localize Component Styles: If your styles are specific to a component or a page, place them inside a style.css file within the respective component or page directory.
 
-## Expanding the ESLint configuration
+## Component Creation
+Components in this project are divided into two categories:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+`Shared Components:` If the component you are creating is used across multiple pages, create it inside Shared folder.
 
-- Configure the top-level `parserOptions` property like this:
+`Page-Specific Components:` If the component is specific to a single page, create it within the components directory inside the directory of that specific page.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+This structure will make our codebase more organized and easier to navigate.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Responsive Design
+Ensure that the components you create are responsive. As we work in a collaborative environment, other developers might find it difficult to understand and modify your styles. If the component is not responsive, it will add extra overhead to the development process, reducing the overall efficiency. Please consider various device sizes during your development process.
+
+## Testing
+We highly value test coverage in this project. Whenever you work on a component, we encourage you to write corresponding tests if possible.
+
+Thank you for your contributions to this project. Remember that effective collaboration is key to our success. Please ensure you stick to these guidelines when contributing.
+
+If you have any questions or suggestions for improving these guidelines, please feel free to bring them up. We're always open to constructive feedback and improvement!

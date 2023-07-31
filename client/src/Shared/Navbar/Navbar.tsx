@@ -44,7 +44,7 @@ const NavBar: React.FC = () => {
         <div className='md:hidden'>
           <Hamburger toggled={isOpen} toggle={setOpen} />
         </div>
-         <div
+        <div
           className={`md:static md:w-auto w-full absolute top-full bg-white left-0 z-20 overflow-hidden transition-all ease-in-out duration-300 ${
             isOpen ? 'max-h-96' : 'md:max-h-full max-h-0'
           } md:flex md:w-auto`}
@@ -65,9 +65,8 @@ const NavBar: React.FC = () => {
             <AuthLinks />
           </div>
         </div>
-        <div className="md:flex hidden">
-
-        <AuthLinks />
+        <div className='md:flex hidden'>
+          <AuthLinks />
         </div>
       </div>
     </nav>

@@ -24,7 +24,7 @@ const AuthLinks = () => {
         </button>
       </Link>
       <Link to={ROUTES.SIGNIN}>
-        <button className='text-gray-700 hover:bg-primary-200/90 hover:shadow-primary-200 shadow-md bg-primary-200 font-bold rounded-lg text-sm px-4 py-2 text-center md:w-auto w-full'>
+        <button className='text-gray-700 border-2 border-primary-200 hover:bg-primary-200/90 hover:shadow-primary-200 shadow-md bg-primary-200 font-bold rounded-lg text-sm px-4 py-2 text-center md:w-auto w-full'>
           Sign in
         </button>
       </Link>

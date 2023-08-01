@@ -3,7 +3,7 @@ import SectionTitle from './SectionTitle'
 import { LuUsers } from 'react-icons/lu'
 import { LuMousePointerClick } from 'react-icons/lu'
 
-export default function Chose() {
+export default function ChooseUs() {
   return (
     <section className='py-20 max-w-screen-xl mx-auto'>
       <SectionTitle

@@ -1,10 +1,13 @@
 import React from 'react'
 import Card from './Card'
+import SectionTitle from './SectionTitle'
 export default function Feature() {
   return (
-    <section className='feature-container'>
-      <h5>Our Features</h5>
-      <h2>Features That Makes Learning Fun</h2>
+    <section className='py-32'>
+      <SectionTitle
+        h3Text='Our Features'
+        h2Text='Features That Makes Learning Fun'
+      />
       <Card />
     </section>
   )

@@ -1,15 +1,22 @@
-import { FieldValues, FieldError, UseFormRegister, Path } from 'react-hook-form';
+import { FieldValues, FieldError, UseFormRegister, Path } from 'react-hook-form'
 
 type InputFieldProps<TFieldValues extends FieldValues> = {
-  label: string,
-  placeholder: string,
-  register: UseFormRegister<TFieldValues>,
-  name: Path<TFieldValues>,
-  error?: FieldError,
-  type?: string,
+  label: string
+  placeholder: string
+  register: UseFormRegister<TFieldValues>
+  name: Path<TFieldValues>
+  error?: FieldError
+  type?: string
 }
 
-const InputField = <TFieldValues extends FieldValues>({ label, placeholder, register, name, error, type = "text" }: InputFieldProps<TFieldValues>) => (
+const InputField = <TFieldValues extends FieldValues>({
+  label,
+  placeholder,
+  register,
+  name,
+  error,
+  type = 'text',
+}: InputFieldProps<TFieldValues>) => (
   <div className='mb-3'>
     <label className='text-gray-600 mb-2 font-open-sans font-bold inline-block'>
       {label}

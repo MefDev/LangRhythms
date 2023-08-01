@@ -6,7 +6,6 @@ import { ROUTES } from '@/utils/routes'
 import { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-
 const AppRoute = () => {
   return (
     <Routes>
@@ -20,7 +19,7 @@ const AppRoute = () => {
           }
         />
       </Route>
-     <Route
+      <Route
         path={ROUTES.SIGNIN}
         element={
           <Suspense fallback='loading...'>

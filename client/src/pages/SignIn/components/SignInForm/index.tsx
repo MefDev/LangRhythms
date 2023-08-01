@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '@/utils/routes'
 import InputField from '@/Shared/Auth/InputField'
 
-
 type Inputs = {
   email: string
   password: string
@@ -31,20 +30,20 @@ const SignUpForm: React.FC = () => {
       </h1>
 
       <InputField
-        label="Email"
-        placeholder="ex: zino@yoruzuya-gin-chan.com"
+        label='Email'
+        placeholder='ex: zino@yoruzuya-gin-chan.com'
         register={register}
-		name='email'
+        name='email'
         error={errors.email}
       />
 
       <InputField
-        label="Password"
-        placeholder="Enter your password"
+        label='Password'
+        placeholder='Enter your password'
         register={register}
         error={errors.password}
-        type="password"
-		name='password'
+        type='password'
+        name='password'
       />
 
       <div className='text-center mt-12 mb-6'>
@@ -54,7 +53,12 @@ const SignUpForm: React.FC = () => {
       </div>
       <p className='font-semibold font-open-sans text-gray-700 mb-10'>
         Don't have an account?
-        <Link to={ROUTES.SIGNUP} className='text-secondary-300 hover:text-secondary-300/80 ml-1'>Create account</Link>
+        <Link
+          to={ROUTES.SIGNUP}
+          className='text-secondary-300 hover:text-secondary-300/80 ml-1'
+        >
+          Create account
+        </Link>
       </p>
       <div className='text-center'>
         <p className='w-100 text-center my-2'>— OR —</p>

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '@/utils/routes'
 import InputField from '@/Shared/Auth/InputField'
 
-
 type Inputs = {
   fullname: string
   email: string
@@ -31,29 +30,29 @@ const SignUpForm: React.FC = () => {
         Create your free account
       </h1>
 
-       <InputField
-        label="FullName"
-        placeholder="Enter your fullname"
+      <InputField
+        label='FullName'
+        placeholder='Enter your fullname'
         register={register}
-		name='fullname'
+        name='fullname'
         error={errors.fullname}
       />
 
       <InputField
-        label="Email"
-        placeholder="ex: zino@yoruzuya-gin-chan.com"
+        label='Email'
+        placeholder='ex: zino@yoruzuya-gin-chan.com'
         register={register}
-		name='email'
+        name='email'
         error={errors.email}
       />
 
       <InputField
-        label="Password"
-        placeholder="Enter your password"
+        label='Password'
+        placeholder='Enter your password'
         register={register}
         error={errors.password}
-        type="password"
-		name='password'
+        type='password'
+        name='password'
       />
 
       <div className='text-center mb-6 mt-10'>
@@ -63,7 +62,12 @@ const SignUpForm: React.FC = () => {
       </div>
       <p className='font-semibold font-open-sans text-gray-700 mb-10'>
         Already have a account?
-        <Link to={ROUTES.SIGNIN} className='text-secondary-100 hover:text-secondary-100/80 ml-1'>SignIn</Link>
+        <Link
+          to={ROUTES.SIGNIN}
+          className='text-secondary-100 hover:text-secondary-100/80 ml-1'
+        >
+          SignIn
+        </Link>
       </p>
       <div className='text-center'>
         <p className='w-100 text-center my-2'>— OR —</p>

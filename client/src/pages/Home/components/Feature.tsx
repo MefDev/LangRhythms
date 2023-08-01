@@ -11,7 +11,7 @@ export default function Feature() {
         h2Text='Features That Makes Learning Fun'
       />
 
-      <div className='grid md:grid-cols-3 md:w-auto w-96 gap-10 max-w-screen-xl mx-auto'>
+      <div className='grid md:grid-cols-3 max-w-[369px] gap-10 sm:max-w-screen-xl mx-auto'>
         <div className=' p-10 bg-primary-100/20  shadow-lg shadow-primary-100/30 rounded-lg'>
           <img className='mb-6' src={stars} alt='stars icon' />
           <h4 className='mb-2 font-bold text-black-3 text-xl'>

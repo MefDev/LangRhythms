@@ -5,7 +5,7 @@ import arrow from '/arrow.png'
 import SectionTitle from './SectionTitle'
 export default function instruction() {
   return (
-    <section className='instruction-container'>
+    <section className='pb-20'>
 
       <SectionTitle
         h3Text='How it works'

@@ -1,11 +1,14 @@
 import React from 'react'
 import Profile from './Profile'
+import SectionTitle from './SectionTitle'
 export default function Testimonial() {
   return (
     <div>
-      <section className='testimonial-container'>
-        <h5>Testimonials</h5>
-        <h2>Trusted by Thousands of Happy Students</h2>
+      <section className='py-16'>
+      <SectionTitle
+        h3Text='Testimonials'
+        h2Text='Trusted by Thousands of Happy Students'
+      />
         <Profile />
       </section>
     </div>

@@ -6,7 +6,9 @@ import SectionTitle from './SectionTitle'
 
 export default function HowItWorks() {
   return (
-    <section className='py-24 max-w-screen-xl mx-auto'>
+    <section className='relative py-24 max-w-screen-xl mx-auto'>
+       <div className="absolute top-0 left-0 right-0 bottom-0 hero z-0"/>
+      <div className="relative z-10">
       <SectionTitle
         h3Text='How it works'
         h2Text='We make learning simple and straightforward!'
@@ -40,6 +42,7 @@ export default function HowItWorks() {
             lessons designed for your skill level.
           </p>
         </div>
+      </div>
       </div>
     </section>
   )

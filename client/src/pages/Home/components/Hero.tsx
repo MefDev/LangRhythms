@@ -1,11 +1,11 @@
-import pattern1 from '/pattern1.png'
-import pattern2 from '/pattern2.png'
+import { ReactComponent as LettersPattern } from '@/assets/patterns/letters-pattern.svg'
 
 export default function Hero() {
   return (
-    <section className='py-20 relative overflow-hidden'>
-      <div className='mx-auto max-w-2xl text-center flex flex-col items-center'>
-        <h1 className='text-3xl md:text-header font-bold mb-4 md:mb-8 leading-normal'>
+    <section className='py-20 mb-32 relative'>
+      <div className='relative mx-auto max-w-2xl text-center flex flex-col items-center'>
+       <div className="absolute top-0 left-0 right-0 bottom-0 hero z-0"/>
+        <h1 className='text-3xl md:text-header font-bold mb-4 z-10 md:mb-8 leading-normal'>
           Unlock Moroccan Culture: Learn Darija and Tamazight with
           <span
             className='
@@ -39,27 +39,18 @@ export default function Hero() {
             Ease!
           </span>
         </h1>
-        <p className='text-gray-500 leading-normal max-w-md mb-4 md:mb-8 text-sm'>
+        <p className='text-gray-500 leading-normal max-w-md mb-4 z-10 md:mb-8 text-sm'>
           Dive into the rich tapestry of Moroccan culture through its vibrant
           languages, Darija and Tamazight. Start your language journey today and
           open doors to an enchanting new world.
         </p>
-        <div className='relative'>
+
           <button className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-full text-white capitalize font-bold text-sm hover:bg-primary-100/90 shadow-lg'>
             Get Started
           </button>
-        </div>
+      <LettersPattern className='absolute md:max-w-2xl max-w-lg md:-top-20 -top-2/3 z-[-1]' />
+
       </div>
-      <img
-        className='absolute -top-10 -left-10'
-        src={pattern1}
-        alt='amazigh mosaic'
-      />
-      <img
-        className='absolute -right-2 bottom-20'
-        src={pattern2}
-        alt='amazigh mosaic'
-      />
     </section>
   )
 }

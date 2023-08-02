@@ -55,7 +55,7 @@ const Footer = () => (
           </div>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:justify-between'>
-          <div className=''>
+          <div className='px-6'>
             <h3 className='text-lg font-bold mb-6'>About</h3>
             <ul className='space-y-4 lg:col-span-2 xl:col-span-2'>
               {aboutLinks.map((link, index) => (
@@ -70,7 +70,7 @@ const Footer = () => (
               ))}
             </ul>
           </div>
-          <div className=''>
+          <div className='px-6'>
             <h3 className='text-lg font-bold mb-6'>Community</h3>
             <ul className='space-y-4 lg:col-span-2 xl:col-span-2'>
               {communityLinks.map((link, index) => (
@@ -85,7 +85,7 @@ const Footer = () => (
               ))}
             </ul>
           </div>
-          <div className=''>
+          <div className='px-6'>
             <h3 className='text-lg font-bold mb-6'>Social media</h3>
             <ul className='space-y-4 lg:col-span-2 xl:col-span-2'>
               {socialMediaLinks.map((link, index) => (

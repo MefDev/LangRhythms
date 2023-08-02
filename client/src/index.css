@@ -3,9 +3,11 @@
 @import 'tailwindcss/utilities';
 
 /* Global Styles */
-body {
-  @apply font-open-sans bg-gradient-to-r from-white via-white via-35% to-[#E5EBFD] to-80%;
+.linear-100 {
+  @apply font-open-sans bg-gradient-to-r from-white via-white via-35% to-[#FFFBF1] to-80%;
 }
+
+
 
 h1,
 h2,

@@ -5,7 +5,7 @@ import { LuMousePointerClick } from 'react-icons/lu'
 
 export default function ChooseUs() {
   return (
-    <section className='py-20 max-w-screen-xl mx-auto'>
+    <section className='py-20 mb-20 max-w-screen-xl mx-auto'>
       <SectionTitle
         h3Text='Why choose us'
         h2Text='Enjoyable & Rewarding Experience!'

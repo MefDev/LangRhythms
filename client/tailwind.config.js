@@ -11,6 +11,7 @@ export default {
         'secondary-200': '#F66742',
         'secondary-300': '#A7CE4A',
         'secondary-400': '#9848FF',
+        'secondary-500': '#AD9F93',
         'gray-1': '#333333',
         'gray-2': '#4F4F4F',
         'gray-3': '#828282',

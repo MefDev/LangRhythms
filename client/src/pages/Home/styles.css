@@ -71,3 +71,10 @@
 .swiper-slide-active .review {
   @apply border border-primary-200;
 }
+
+/* Hero */
+
+.hero {
+  background: linear-gradient(93deg, #fff 0%, rgba(225, 227, 253, 0.71) 100%);
+  filter: blur(81.5px);
+}

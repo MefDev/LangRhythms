@@ -50,8 +50,8 @@ export default function Hero() {
         </button>
       </div>
       <div className='lg:relative absolute top-0 lg:opacity-100 opacity-40'>
-        <Pattern/>
-        <Abjd className='absolute max-w-2xl top-0 right-0 lg:block hidden'/>
+        <Pattern />
+        <Abjd className='absolute max-w-2xl top-0 right-0 lg:block hidden' />
       </div>
     </section>
   )

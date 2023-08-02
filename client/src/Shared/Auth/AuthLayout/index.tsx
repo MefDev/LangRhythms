@@ -16,15 +16,16 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ src, children }) => {
           className='w-full 2xl:bg-contain bg-cover lg:flex hidden bg-no-repeat absolute h-full top-0 bottom-0 lg:bg-left bg-center'
           style={{ backgroundImage: `url(${src})` }}
         />
-
       </div>
       <div className='relative flex justify-center items-center col-span-2 py-4 lg:px-0 px-4'>
-       <Link to={ROUTES.HOME} className='absolute -top-2 left-0 flex px-4 items-center space-x-2'>
-        <LuChevronsLeft/>
-        <span className="font-bold">Home</span>
+        <Link
+          to={ROUTES.HOME}
+          className='absolute -top-2 left-0 flex px-4 items-center space-x-2'
+        >
+          <LuChevronsLeft />
+          <span className='font-bold'>Home</span>
         </Link>
         {children}
-
       </div>
     </div>
   )

@@ -4,11 +4,10 @@ import { ReactComponent as Pattern } from '@/assets/patterns/stars-pattern.svg'
 import SectionTitle from './SectionTitle'
 import { LuLogIn, LuLanguages } from 'react-icons/lu'
 
-
 export default function HowItWorks() {
   return (
     <section className='bg-secondary-500/[3%] relative py-24'>
-			<Pattern className='absolute left-0 top-0 -translate-y-1/2 lg:w-auto w-40 lg:opacity-100 opacity-50'/>
+      <Pattern className='absolute left-0 top-0 -translate-y-1/2 lg:w-auto w-40 lg:opacity-100 opacity-50' />
       <div className='max-w-screen-xl mx-auto'>
         <SectionTitle
           h3Text='How it works'

@@ -7,6 +7,8 @@ import 'swiper/css/navigation'
 import { BsArrowRightShort, BsArrowLeftShort } from 'react-icons/bs'
 import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules'
 import { AiTwotoneStar } from 'react-icons/ai'
+import { motion } from 'framer-motion'
+import { fadeIn } from '@/utils/Animation'
 
 const testimonials = [
   {
@@ -67,7 +69,7 @@ const testimonials = [
 
 export default function Testimonial() {
   return (
-    <section className='sm:max-w-screen-xl mx-auto max-w-screen relative py-20 mb-20'>
+    <section className='sm:max-w-screen-xl mx-auto max-w-screen relative py-20 mb-20 xl:px-0 px-4'>
       <SectionTitle
         h3Text='Testimonials'
         h2Text='Trusted by Thousands of Happy Students'
@@ -95,38 +97,45 @@ export default function Testimonial() {
         >
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index}>
-              <div className='review max-w-lg mx-auto bg-white rounded-lg shadow-lg sm:py-4'>
-                <div className='py-10 px-5 text-center space-y-2 sm:text-left'>
-                  <div className='flex justify-between gap-4 space-x-0.5'>
-                    <div className='flex gap-2'>
-                      <img
-                        className=' block w-12 h-12 rounded-full sm:mx-0 sm:shrink-0'
-                        src={testimonial.image}
-                        alt="Person's Face"
-                      />
-                      <div>
-                        <p className='text-base text-black font-semibold'>
-                          {testimonial.name}
-                        </p>
-                        <p className='text-slate-500 font-medium'>
-                          {testimonial.location}
-                        </p>
+              <motion.div
+                initial='hidden'
+                whileInView='visible'
+                variants={fadeIn}
+                viewport={{ once: true }}
+              >
+                <div className='review sm:max-w-lg xxs:max-w-[20rem] max-w-[15rem] mx-auto bg-white rounded-lg shadow-lg sm:py-4'>
+                  <div className='py-10 px-5 text-center space-y-2 sm:text-left'>
+                    <div className='flex justify-between items-center xxs:flex-row flex-col xxs:space-y-0 space-y-4'>
+                      <div className='flex gap-2 xxs:flex-row flex-col items-center'>
+                        <img
+                          className=' block w-12 h-12 rounded-full sm:mx-0 sm:shrink-0'
+                          src={testimonial.image}
+                          alt="Person's Face"
+                        />
+                        <div>
+                          <p className='text-base text-black font-semibold'>
+                            {testimonial.name}
+                          </p>
+                          <p className='text-slate-500 font-medium'>
+                            {testimonial.location}
+                          </p>
+                        </div>
+                      </div>
+                      <div className='flex items-center space-x-2'>
+                        <span className='text-end font-bold'>
+                          {testimonial.rating}
+                        </span>
+                        <span>
+                          <AiTwotoneStar className='text-xl text-yellow-500' />
+                        </span>
                       </div>
                     </div>
-                    <div className='flex items-center space-x-2'>
-                      <span className='text-end font-bold'>
-                        {testimonial.rating}
-                      </span>
-                      <span>
-                        <AiTwotoneStar className='text-xl text-yellow-500' />
-                      </span>
-                    </div>
+                    <p className='text-base text-gray-2 pt-2'>
+                      {testimonial.review}
+                    </p>
                   </div>
-                  <p className='text-base text-gray-2 pt-2'>
-                    {testimonial.review}
-                  </p>
                 </div>
-              </div>
+              </motion.div>
             </SwiperSlide>
           ))}
           <div className='slider-controler -bottom-8 z-50'>

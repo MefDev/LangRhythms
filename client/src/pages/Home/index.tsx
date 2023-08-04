@@ -5,6 +5,7 @@ import HowItWorks from './components/HowItWorks'
 import Testimonial from './components/Testimonial'
 import './styles.css'
 
+
 const Home = () => {
   return (
     <>

@@ -1,2 +1,2 @@
-export { default as signUpSchema} from './signupValidation'
-export {default as signInSchema} from './signinValidation'
+export { default as signUpSchema } from './signupValidation'
+export { default as signInSchema } from './signinValidation'

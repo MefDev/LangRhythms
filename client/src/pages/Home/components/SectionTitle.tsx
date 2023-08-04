@@ -11,9 +11,9 @@ const SectionTitle: React.FC<Props> = ({ h2Text, h3Text }) => {
     <motion.div
       initial='hidden'
       whileInView='visible'
-			custom={0.1}
+      custom={0.1}
       variants={listAnimation}
-			viewport={{ once: true }}
+      viewport={{ once: true }}
       className='flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto mb-20'
     >
       <motion.h3

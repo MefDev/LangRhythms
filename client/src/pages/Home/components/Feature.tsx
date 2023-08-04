@@ -12,7 +12,8 @@ const featuresData = [
     bg: 'bg-primary-100',
     shadow: 'shadow-primary-100/40',
     title: 'Interactive Lessons',
-    description: 'Our lessons are designed to make learning an engaging experience.',
+    description:
+      'Our lessons are designed to make learning an engaging experience.',
   },
   {
     Icon: Target,
@@ -26,8 +27,9 @@ const featuresData = [
     bg: 'bg-secondary-100',
     shadow: 'shadow-secondary-100/40',
     title: 'Community Support',
-    description: 'Connect with fellow learners and native speakers for real-time practice.',
-  }
+    description:
+      'Connect with fellow learners and native speakers for real-time practice.',
+  },
 ]
 
 export default function Feature() {
@@ -50,7 +52,13 @@ export default function Feature() {
           <motion.div
             key={index}
             variants={itemSlideUp}
-            className={`lg:p-10 p-4 ${data.bg} shadow-lg ${data.shadow} rounded-lg text-white ${index === featuresData.length - 1 ? 'lg:col-span-1 md:col-span-2 justify-self-center' : ''}`}
+            className={`lg:p-10 p-4 ${data.bg} shadow-lg ${
+              data.shadow
+            } rounded-lg text-white ${
+              index === featuresData.length - 1
+                ? 'lg:col-span-1 md:col-span-2 justify-self-center'
+                : ''
+            }`}
           >
             <data.Icon className='mb-8' />
             <h4 className='mb-4 font-bold  text-xl'>{data.title}</h4>
@@ -61,4 +69,3 @@ export default function Feature() {
     </section>
   )
 }
-

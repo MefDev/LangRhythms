@@ -23,10 +23,10 @@ export default {
       fontSize: {
         header: ['3rem', '1.3'],
       },
-    screens: {
-      xs: '389px',
-      xxs: '351px'
-    }
+      screens: {
+        xs: '389px',
+        xxs: '351px',
+      },
     },
   },
   plugins: [],

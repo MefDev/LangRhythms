@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { signInSchema } from '@/utils/formValidation'
+import { signInSchema } from '@/utils/FormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'

@@ -1,32 +1,47 @@
-from flask import Flask
-import os
-import pathlib
-import requests
-from flask import Flask, session, abort, redirect, request
-from google.oauth2 import id_token
-from google_auth_oauthlib.flow import Flow
-from pip._vendor import cachecontrol
-import google.auth.transport.requests
+
+
+from flask import Flask, session, abort, redirect, request, jsonify
+from flask_cors import CORS
+from flask_bcrypt import Bcrypt
+from flask_session import Session
+import json
+from flask import Flask, request, jsonify
+from datetime import datetime, timedelta, timezone
+from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
+
+from models import db, User
+from config import SECRET_KEY
+
+
 # Configure application
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
+CORS(app, supports_credentials=True)
+server_session = Session(app)
 
-#################### Google API ########################
+ 
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
+# Databse configuration  Mysql                            Username:password@hostname/databasename
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:''@localhost/flaskreact'
+ 
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
-app = Flask("Google Login App")
-app.secret_key = "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" # make sure this matches with that's in client_secret.json
-
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow Http traffic for local dev
-
-GOOGLE_CLIENT_ID = "693566404988-4ptub7msktjkoqka0bltslg8m3rijv37.apps.googleusercontent.com"
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
-
-flow = Flow.from_client_secrets_file(
-    client_secrets_file=client_secrets_file,
-    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-    redirect_uri="http://127.0.0.1:5000/callback"
-)
+#################### Database Config ########################
 
 
+jwt = JWTManager(app)
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO = True
+bcrypt = Bcrypt(app)    
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+
+
+
+
+# Limit the access to certain features
 def login_is_required(function):
     def wrapper(*args, **kwargs):
         if "google_id" not in session:
@@ -36,54 +51,81 @@ def login_is_required(function):
 
     return wrapper
 
-#################### Routes ########################
+#################### NORMAL Routes ########################
 
-@app.route("/login")
-def login():
-    authorization_url, state = flow.authorization_url()
-    session["state"] = state
-    return redirect(authorization_url)
+@app.route('/logintoken', methods=["POST"])
+def create_token():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+  
+    user = User.query.filter_by(email=email).first()
+    #if email != "test" or password != "test":
+    #    return {"msg": "Wrong email or password"}, 401
+    if user is None:
+        return jsonify({"error": "Wrong email or passwords"}), 401
+      
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"error": "Unauthorized"}), 401
+      
+    access_token = create_access_token(identity=email)
+    #response = {"access_token":access_token}
+  
+    return jsonify({
+        "email": email,
+        "access_token": access_token
+    })
+    #return response
 
-
-@app.route("/callback")
-def callback():
-    flow.fetch_token(authorization_response=request.url)
-
-    if not session["state"] == request.args["state"]:
-        abort(500)  # State does not match!
-
-    credentials = flow.credentials
-    request_session = requests.session()
-    cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
-
-    id_info = id_token.verify_oauth2_token(
-        id_token=credentials._id_token,
-        request=token_request,
-        audience=GOOGLE_CLIENT_ID
-    )
-
-    session["google_id"] = id_info.get("sub")
-    session["name"] = id_info.get("name")
-    return redirect("/dashboard")
-
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    email = request.json["email"]
+    name = request.json["name"]
+    password = request.json["password"]
+   
+    user_exists = User.query.filter_by(email=email).first()
+    if user_exists:
+        return jsonify({"error": "Email already exists"}), 409
+       
+    hashed_password = bcrypt.generate_password_hash(password)
+    new_user = User(name=name, email=email, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+   
+    return jsonify({
+        "id": new_user.id,
+        "email": new_user.email,
+        "name": new_user.name
+    })
+ 
+@app.after_request
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            data = response.get_json()
+            if type(data) is dict:
+                data["access_token"] = access_token 
+                response.data = json.dumps(data)
+        return response
+    except (RuntimeError, KeyError):
+        # Case where there is not a valid JWT. Just return the original respone
+        return response
 
 @app.route("/logout")
 def logout():
     session.clear()
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
     return redirect("/")
 
-
-@app.route("/")
-def Home():
-    return "Hello World <a href='/login'><button>Login</button></a>"
-
-
-@app.route("/dashboard")
-@login_is_required
-def dashboard():
-    return f"Hello {session['name']}!"
+#@app.route("/dashboard")
+#@login_is_required
+#def dashboard():
+#    return f"Hello {session['name']}!"
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host="localhost", port=8000, debug=True)

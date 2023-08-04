@@ -1,4 +1,6 @@
 import Layout from '@/Shared/Layout'
+import Blog from '@/pages/Blog'
+import Post from '@/pages/Blog/Post'
 import Home from '@/pages/Home'
 import SignIn from '@/pages/SignIn'
 import SignUp from '@/pages/SignUp'
@@ -15,6 +17,22 @@ const AppRoute = () => {
           element={
             <Suspense fallback='loading'>
               <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path={ROUTES.BLOG}
+          element={
+            <Suspense fallback='loading'>
+              <Blog />
+            </Suspense>
+          }
+        />
+        <Route
+          path={ROUTES.BLOG_POST}
+          element={
+            <Suspense>
+              <Post />
             </Suspense>
           }
         />

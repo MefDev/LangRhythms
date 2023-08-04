@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import sanityClient from '@/services/client'
 import { Post } from '@/types/Blog.types'
-import { createApi  } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
 const sanityBaseQuery = async ({ query }: { query: string }) => {
   try {
-    const data = await sanityClient.fetch(query);
-    return { data };
+    const data = await sanityClient.fetch(query)
+    return { data }
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.error(error)
+    throw error
   }
 }
 

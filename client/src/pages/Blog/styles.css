@@ -1,0 +1,7 @@
+.post-body h4 {
+  @apply text-2xl mb-4 mt-6 font-bold;
+}
+
+.post-body p {
+  @apply mb-4;
+}

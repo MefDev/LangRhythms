@@ -1,6 +1,6 @@
 import AuthLayout from '@/Shared/Auth/AuthLayout'
 import signUpImg from '@/assets/sign-up-img.jpg'
-import SignUpForm from './components/SignUpForm/ndex'
+import SignUpForm from './components/SignUpForm'
 import pattern from '@/assets/patterns/sign-up-pattern.svg'
 
 const SignUp = () => {

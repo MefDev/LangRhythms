@@ -2,7 +2,6 @@
 export default {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
     extend: {
       colors: {
         'primary-100': '#525FE1',
@@ -24,6 +23,10 @@ export default {
       fontSize: {
         header: ['3rem', '1.3'],
       },
+    screens: {
+      xs: '389px',
+      xxs: '351px'
+    }
     },
   },
   plugins: [],

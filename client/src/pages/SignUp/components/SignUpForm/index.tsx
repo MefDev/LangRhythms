@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { signUpSchema } from '@/utils/formValidation'
+import { signUpSchema } from '@/utils/FormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'

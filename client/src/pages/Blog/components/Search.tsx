@@ -1,5 +1,8 @@
+import { itemSlideUp } from '@/utils/Animation'
+import { motion } from 'framer-motion'
 import { ChangeEvent } from 'react'
 import { LuSearch } from 'react-icons/lu'
+
 type Props = {
   setSearchTerm: (searchTerm: string) => void
   searchTerm: string
@@ -14,7 +17,11 @@ const Search = ({ setSearchTerm, searchTerm }: Props) => {
     e.preventDefault()
   }
   return (
-    <form onSubmit={handleFormSubmit} className='mx-auto w-80'>
+    <motion.form
+      variants={itemSlideUp}
+      onSubmit={handleFormSubmit}
+      className='mx-auto w-80'
+    >
       <label htmlFor='search' className='sr-only'>
         Search
       </label>
@@ -35,7 +42,7 @@ const Search = ({ setSearchTerm, searchTerm }: Props) => {
           <span className='sr-only'>Search</span>
         </button>
       </div>
-    </form>
+    </motion.form>
   )
 }
 

@@ -1,4 +1,6 @@
 import SectionTitle from '@/pages/Home/components/SectionTitle'
+import { itemSlideUp, listAnimation } from '@/utils/Animation'
+import { motion } from 'framer-motion'
 
 export const NewsLetter = () => {
   return (
@@ -9,12 +11,22 @@ export const NewsLetter = () => {
           h2Text='Subscribe To Our Newsletter'
         />
         <div className='mx-w lg mx-auto text-center'>
-          <div className='-mt-10'>
-            <p className='font-semibold text-gray-3 mb-6'>
+          <motion.div
+            initial='hidden'
+            whileInView='visible'
+            custom={0.2}
+            variants={listAnimation}
+            viewport={{ once: true }}
+            className='-mt-10'
+          >
+            <motion.p
+              variants={itemSlideUp}
+              className='font-semibold text-gray-3 mb-6'
+            >
               Get weekly Culture news, articles, and <br /> videos delivered to
               your inbox.
-            </p>
-            <form className='mx-auto max-w-md'>
+            </motion.p>
+            <motion.form variants={itemSlideUp} className='mx-auto max-w-md'>
               <label htmlFor='search' className='sr-only'>
                 Search
               </label>
@@ -33,8 +45,8 @@ export const NewsLetter = () => {
                   <span className='sr-only'>Subscribe</span>
                 </button>
               </div>
-            </form>
-          </div>
+            </motion.form>
+          </motion.div>
         </div>
       </div>
     </section>

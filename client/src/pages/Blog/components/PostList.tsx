@@ -4,6 +4,8 @@ import { formatDate } from '@/utils/Time'
 import { ROUTES } from '@/utils/routes'
 import { Link } from 'react-router-dom'
 import { BsDot } from 'react-icons/bs'
+import { fadeIn } from '@/utils/Animation'
+import { motion } from 'framer-motion'
 
 type Props = {
   posts: Post[]
@@ -11,7 +13,14 @@ type Props = {
 
 const PostList = ({ posts }: Props) => {
   return (
-    <div className='grid md:grid-cols-2 grid-cols-1 lg:gap-10 md:gap-5 gap-10'>
+    <motion.div
+      initial='hidden'
+      whileInView='visible'
+      custom={0.2}
+      variants={fadeIn}
+      viewport={{ once: true }}
+      className='grid md:grid-cols-2 grid-cols-1 lg:gap-10 md:gap-5 gap-10'
+    >
       {posts &&
         posts.map((post) => (
           <Link
@@ -59,7 +68,7 @@ const PostList = ({ posts }: Props) => {
             </div>
           </Link>
         ))}
-    </div>
+    </motion.div>
   )
 }
 

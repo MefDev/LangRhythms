@@ -45,6 +45,12 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'category'}}],
     }),
     defineField({
+      name: 'relatedPosts',
+      title: 'RelatedPosts',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'post'}}],
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',

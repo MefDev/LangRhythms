@@ -1,62 +1,76 @@
-import { useGetPostsQuery } from '@/api/blogApi'
-import { urlForImage } from '@/utils/Sanity'
-import { formatDate } from '@/utils/Time'
-import { ROUTES } from '@/utils/routes'
-import { Link } from 'react-router-dom'
+import { useState, FC } from 'react'
+import { useGetPaginatedPostsQuery, useGetTotalPostsQuery } from '@/api/blogApi'
+import SectionTitle from '../Home/components/SectionTitle'
+import PostList from './components/PostList'
+import { NewsLetter } from './components/NewsLetter'
+import Search from './components/Search'
+import SkeletonLoader from './components/SkeletonLoader'
+import ErrorState from './components/ErrorState'
+import { filterPosts } from '@/utils/Search'
+import PostNotFound from './components/PostNotFound'
+import Pagination from '@/Shared/Pagination'
+import { itemSlideUp, listAnimation } from '@/utils/Animation'
+import { motion } from 'framer-motion'
 
-const Blog = () => {
-  const { data: posts, isError, isLoading } = useGetPostsQuery()
+const Blog: FC = () => {
+  const { data: totalPosts } = useGetTotalPostsQuery()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const postsPerPage = 2
 
-  if (isLoading) {
-    return (
-      <div className='flex justify-center items-center h-screen'>
-        Loading...
-      </div>
-    )
-  }
+  const {
+    data: posts,
+    isError,
+    isLoading,
+  } = useGetPaginatedPostsQuery({
+    page: currentPage,
+    perPage: postsPerPage,
+  })
 
-  if (isError) {
-    return (
-      <div className='flex justify-center items-center h-screen text-red-500'>
-        Error!
-      </div>
-    )
+  const filteredPosts = filterPosts(posts, searchTerm)
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
   }
 
   return (
-    <div className='container mx-auto px-4 py-6 flex items-center justify-center'>
-      {posts &&
-        posts.map((post) => (
-          <Link
-            to={`${ROUTES.BLOG}/${post.slug.current}`}
-            key={post._id}
-            className='mb-8 bg-white rounded shadow-md p-4 max-w-md mx-auto'
+    <>
+      <section className='py-32 mb-20 mx-auto max-w-screen-xl xl:px-0 px-4 relative'>
+        <SectionTitle
+          h3Text='blog'
+          h2Text='Get To know more about the cultures and traditions'
+        />
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          custom={0.2}
+          variants={listAnimation}
+          viewport={{ once: true }}
+          className='text-center max-w-md mx-auto -mt-12 mb-20'
+        >
+          <motion.p
+            variants={itemSlideUp}
+            className='text-gray-500 font-semibold text-sm mb-6'
           >
-            <h2 className='text-xl font-semibold mb-2'>{post.title}</h2>
-            <img
-              src={urlForImage(post.mainImage).fit('max').url()}
-              className='object-cover rounded'
-            />
-            <p className='mt-2'>
-              {post.categories?.map((category, index) => (
-                <span
-                  key={`${index}-${category}`}
-                  className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2'
-                >
-                  {category}
-                </span>
-              ))}
-            </p>
-            <p className='mt-2 text-gray-600'>{formatDate(post.publishedAt)}</p>
-            <p className='mt-2 text-gray-600 flex items-center'>
-              <span>{post.estimatedReadingTime}</span>
-              <span className='ml-1'>min</span>
-            </p>
-            <p className='mt-2 text-gray-800'>{post.description}</p>
-            <p className='mt-4 text-gray-500'>{post.authorName}</p>
-          </Link>
-        ))}
-    </div>
+            delve into the rich tapestry of Moroccan culture, exploring its
+            languages, art, cuisine, history, and traditions.
+          </motion.p>
+          <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+        </motion.div>
+        {isLoading && <SkeletonLoader />}
+        {!isLoading && isError && <ErrorState />}
+        {filteredPosts && filteredPosts.length > 0 ? (
+          <PostList posts={filteredPosts} />
+        ) : (
+          <PostNotFound />
+        )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil((totalPosts || postsPerPage) / postsPerPage)}
+          onPageChange={handlePageChange}
+        />
+      </section>
+      <NewsLetter />
+    </>
   )
 }
 

@@ -11,7 +11,13 @@ export interface Post {
   mainImage: Image
   authorBio: Array<BlockContent>
   body: Array<BlockContent>
-  markDefs: unknown[]
+  relatedPosts: {
+    mainImage: Image
+    _id: string
+    slug: Slug
+    title: string
+    description: string
+  }[]
 }
 
 interface BlockContent {

@@ -15,6 +15,7 @@ export default {
         'gray-2': '#4F4F4F',
         'gray-3': '#828282',
         'black-3': '#282828',
+        'light-100': '#FFFEFB',
       },
       fontFamily: {
         raleway: ['Raleway', 'sans-serif'],

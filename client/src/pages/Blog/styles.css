@@ -1,7 +1,11 @@
 .post-body h4 {
-  @apply text-2xl mb-4 mt-6 font-bold;
+  @apply text-2xl mb-4 mt-6 font-bold text-gray-2;
 }
 
 .post-body p {
-  @apply mb-4;
+  @apply mb-4 leading-loose;
+}
+
+.post-body ol li {
+  @apply mb-4 leading-relaxed;
 }

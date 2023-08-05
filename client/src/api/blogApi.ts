@@ -18,30 +18,6 @@ export const blogApi = createApi({
   baseQuery: sanityBaseQuery,
   tagTypes: ['Posts'],
   endpoints: (builder) => ({
-    getPosts: builder.query<Post[], void>({
-      query: () => ({
-        query: `
-          *[_type == "post"]{
-          _id,
-          title,
-          slug,
-          mainImage,
-          description,
-          "authorName": author->name,
-          "authorImage": author->image,
-          "categories": categories[]->title,
-          publishedAt,
-          "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 )
-        }`,
-      }),
-      providesTags: (result, error) =>
-        result
-          ? [
-              ...result.map(({ _id }) => ({ type: 'Posts' as const, _id })),
-              { type: 'Posts', _id: 'LIST' },
-            ]
-          : [],
-    }),
     getPost: builder.query<Post, string>({
       query: (slug) => ({
         query: `
@@ -55,13 +31,56 @@ export const blogApi = createApi({
         "authorImage": author->image,
         "authorBio": author->bio,
         "categories": categories[]->title,
+        "relatedPosts": relatedPosts[]->{
+          slug,
+          _id,
+          title,
+          mainImage,
+          description
+        },
         publishedAt,
         "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 )
       }[0]`,
       }),
       providesTags: (result, error, _id) => [{ type: 'Posts', _id }],
     }),
+    getPaginatedPosts: builder.query<Post[], { page: number; perPage: number }>(
+      {
+        query: ({ page, perPage }) => ({
+          query: `
+          *[_type == "post"] | order(publishedAt desc) [${
+            (page - 1) * perPage
+          }...${page * perPage}]
+          {
+            _id,
+            title,
+            slug,
+            mainImage,
+            description,
+            "authorName": author->name,
+            "authorImage": author->image,
+            "categories": categories[]->title,
+            publishedAt,
+            "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 )
+          }
+        `,
+        }),
+        providesTags: (result, error, { page }) => [
+          { type: 'Posts', page },
+          { type: 'Posts', _id: 'LIST' },
+        ],
+      }
+    ),
+    getTotalPosts: builder.query<number, void>({
+      query: () => ({
+        query: `count(*[_type == "post"])`,
+      }),
+    }),
   }),
 })
 
-export const { useGetPostsQuery, useGetPostQuery } = blogApi
+export const {
+  useGetPostQuery,
+  useGetPaginatedPostsQuery,
+  useGetTotalPostsQuery,
+} = blogApi

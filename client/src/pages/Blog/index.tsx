@@ -1,5 +1,5 @@
 import { useState, FC } from 'react'
-import { useGetPostsQuery } from '@/api/blogApi'
+import { useGetPaginatedPostsQuery, useGetTotalPostsQuery } from '@/api/blogApi'
 import SectionTitle from '../Home/components/SectionTitle'
 import PostList from './components/PostList'
 import { NewsLetter } from './components/NewsLetter'
@@ -8,27 +8,54 @@ import SkeletonLoader from './components/SkeletonLoader'
 import ErrorState from './components/ErrorState'
 import { filterPosts } from '@/utils/Search'
 import PostNotFound from './components/PostNotFound'
+import Pagination from '@/Shared/Pagination'
+import { itemSlideUp, listAnimation } from '@/utils/Animation'
+import { motion } from 'framer-motion'
 
 const Blog: FC = () => {
-  const { data: posts, isError, isLoading } = useGetPostsQuery()
+  const { data: totalPosts } = useGetTotalPostsQuery()
   const [searchTerm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const postsPerPage = 2
+
+  const {
+    data: posts,
+    isError,
+    isLoading,
+  } = useGetPaginatedPostsQuery({
+    page: currentPage,
+    perPage: postsPerPage,
+  })
 
   const filteredPosts = filterPosts(posts, searchTerm)
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   return (
     <>
-      <section className='py-20 mx-auto max-w-screen-xl xl:px-0 px-4'>
+      <section className='py-32 mb-20 mx-auto max-w-screen-xl xl:px-0 px-4 relative'>
         <SectionTitle
           h3Text='blog'
           h2Text='Get To know more about the cultures and traditions'
         />
-        <div className='text-center max-w-md mx-auto -mt-12 mb-20'>
-          <p className='text-gray-500 font-semibold text-sm mb-6'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          custom={0.2}
+          variants={listAnimation}
+          viewport={{ once: true }}
+          className='text-center max-w-md mx-auto -mt-12 mb-20'
+        >
+          <motion.p
+            variants={itemSlideUp}
+            className='text-gray-500 font-semibold text-sm mb-6'
+          >
             delve into the rich tapestry of Moroccan culture, exploring its
             languages, art, cuisine, history, and traditions.
-          </p>
+          </motion.p>
           <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
-        </div>
+        </motion.div>
         {isLoading && <SkeletonLoader />}
         {!isLoading && isError && <ErrorState />}
         {filteredPosts && filteredPosts.length > 0 ? (
@@ -36,6 +63,11 @@ const Blog: FC = () => {
         ) : (
           <PostNotFound />
         )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil((totalPosts || postsPerPage) / postsPerPage)}
+          onPageChange={handlePageChange}
+        />
       </section>
       <NewsLetter />
     </>

@@ -8,7 +8,6 @@ import os
 from flask import Flask, session, request, redirect, abort
 from config import CLIENT_ID, CLIENT_SECRET
 
-
 #################### Google app ########################
 app = Flask(__name__)
 app.secret_key = CLIENT_SECRET # make sure this matches with that's in client_secret.json

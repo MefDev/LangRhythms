@@ -53,6 +53,7 @@ const NavBar: React.FC = () => {
             {routes.map((route: Route) => (
               <li key={route.name}>
                 <Link
+                  onClick={() => setOpen(false)}
                   to={route.path}
                   className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-100 font-medium md:p-0'
                 >

@@ -16,7 +16,7 @@ const Post = () => {
     return <PostSkeletonLoader />
   }
 
-  if (!isError || !post) {
+  if (isError || !post) {
     return <ErrorState />
   }
 

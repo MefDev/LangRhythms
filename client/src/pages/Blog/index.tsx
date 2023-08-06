@@ -32,6 +32,12 @@ const Blog: FC = () => {
     setCurrentPage(page)
   }
 
+  if (isLoading)
+    return (<SkeletonLoader/>)
+
+  if (isError)
+    return <ErrorState/>
+
   return (
     <>
       <section className='py-32 mb-20 mx-auto max-w-screen-xl xl:px-0 px-4 relative'>
@@ -56,8 +62,6 @@ const Blog: FC = () => {
           </motion.p>
           <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
         </motion.div>
-        {isLoading && <SkeletonLoader />}
-        {!isLoading && isError && <ErrorState />}
         {filteredPosts && filteredPosts.length > 0 ? (
           <PostList posts={filteredPosts} />
         ) : (

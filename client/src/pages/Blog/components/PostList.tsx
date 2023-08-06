@@ -57,7 +57,7 @@ const PostList = ({ posts }: Props) => {
               <p className='text-base text-gray-2 mb-4'>{post.description}</p>
               <div className='flex items-center space-x-4'>
                 <img
-                  src={urlForImage(post.authorImage).width(50).fit('max').url()}
+                  src={urlForImage(post.authorImage).fit('max').url()}
                   alt={`Author ${post.authorName}`}
                   className='w-8 h-8 rounded-full'
                 />

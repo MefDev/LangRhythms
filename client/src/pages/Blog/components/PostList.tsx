@@ -30,7 +30,7 @@ const PostList = ({ posts }: Props) => {
           >
             <img
               src={urlForImage(post.mainImage).fit('max').url()}
-              className='object-cover rounded-t-md'
+              className='w-full max-h-[400px] rounded-t-md'
             />
             <div className='px-6 pt-3 pb-8'>
               <p className='mb-2'>

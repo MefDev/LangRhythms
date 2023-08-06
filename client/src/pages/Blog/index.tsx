@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import { useState, useEffect, FC } from 'react'
 import { useGetPaginatedPostsQuery, useGetTotalPostsQuery } from '@/api/blogApi'
 import SectionTitle from '../Home/components/SectionTitle'
 import PostList from './components/PostList'
@@ -11,12 +11,14 @@ import PostNotFound from './components/PostNotFound'
 import Pagination from '@/Shared/Pagination'
 import { itemSlideUp, listAnimation } from '@/utils/Animation'
 import { motion } from 'framer-motion'
+import { ReactComponent as Pattern_1 } from '@/assets/patterns/blog-pattern1.svg'
+import { ReactComponent as Pattern_2 } from '@/assets/patterns/blog-pattern2.svg'
 
 const Blog: FC = () => {
   const { data: totalPosts } = useGetTotalPostsQuery()
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 2
+  const postsPerPage = 4
 
   const {
     data: posts,
@@ -27,6 +29,14 @@ const Blog: FC = () => {
     perPage: postsPerPage,
   })
 
+  useEffect(() => {
+    document.documentElement.scrollTo({
+      top: 200,
+      left: 0,
+      behavior: 'smooth',
+    })
+  }, [currentPage])
+
   const filteredPosts = filterPosts(posts, searchTerm)
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -34,7 +44,9 @@ const Blog: FC = () => {
 
   return (
     <>
-      <section className='py-32 mb-20 mx-auto max-w-screen-xl xl:px-0 px-4 relative'>
+      <section className='py-32 mb-20 mx-auto max-w-screen-xl xl:px-0 px-4'>
+        <Pattern_1 className='absolute top-20 md:opacity-100 opacity-30 sm:flex hidden -right-10'/>
+        <Pattern_2 className='absolute top-32 left-10'/>
         <SectionTitle
           h3Text='blog'
           h2Text='Get To know more about the cultures and traditions'
@@ -56,18 +68,21 @@ const Blog: FC = () => {
           </motion.p>
           <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
         </motion.div>
-        {isLoading && <SkeletonLoader />}
-        {!isLoading && isError && <ErrorState />}
+        {isLoading && !isError && <SkeletonLoader/>}
+        {!isLoading && isError && <ErrorState/>}
         {filteredPosts && filteredPosts.length > 0 ? (
           <PostList posts={filteredPosts} />
         ) : (
           <PostNotFound />
         )}
+        <div className='relative py-20'>
+
         <Pagination
           currentPage={currentPage}
           totalPages={Math.ceil((totalPosts || postsPerPage) / postsPerPage)}
           onPageChange={handlePageChange}
         />
+        </div>
       </section>
       <NewsLetter />
     </>

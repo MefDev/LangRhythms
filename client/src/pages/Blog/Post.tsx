@@ -50,7 +50,7 @@ const Post = () => {
       <img
         src={urlForImage(post.mainImage).url()}
         alt='post'
-        className='object-cover w-full h-64 rounded mb-8'
+        className='object-cover w-full rounded mb-8'
       />
       <div className='post-body mt-4 mb-20 text-gray-800'>
         <PortableText value={post.body} />
@@ -60,21 +60,21 @@ const Post = () => {
           {post.relatedPosts && (
             <>
               <h3 className='text-2xl font-bold mb-4'>Keep reading</h3>
-              <div className='grid md:grid-cols-1 sm:grid-cols-2 grid-cols-1 gap-2'>
+              <div className='grid md:grid-cols-1 sm:grid-cols-2 grid-cols-1 md:gap-8 gap-5 items-start'>
                 {post.relatedPosts.map((post) => (
                   <Link
                     to={`${ROUTES.BLOG}/${post.slug.current}`}
                     key={post._id}
-                    className='flex md:flex-row md:space-y-0 space-y-4 flex-col items-center md:space-x-4'
+                    className='grid md:grid-cols-5 gap-4 grid-cols-1 items-center md:space-x-4'
                   >
-                    <div>
+                    <div className='col-span-2 md:h-auto'>
                       <img
                         className='w-full h-full rounded'
-                        src={urlForImage(post.mainImage).fit('max').url()}
+                        src={urlForImage(post.mainImage).url()}
                         alt={post.title}
                       />
                     </div>
-                    <div>
+                    <div className='col-span-3'>
                       <h4 className='font-bold text-xl mb-4'>{post.title}</h4>
                       <p className='leading-relaxed text-sm text-gray-3'>
                         {post.description}

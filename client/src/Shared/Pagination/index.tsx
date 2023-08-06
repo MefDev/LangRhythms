@@ -44,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div className='flex justify-center mt-8 absolute bottom-10 left-1/2 -translate-x-1/2'>
+    <div className='flex justify-center mt-8 absolute -bottom-10 left-1/2 -translate-x-1/2'>
       <button
         disabled={currentPage <= 1}
         className='mx-2 p-1 rounded-md bg-gray-200 text-gray-700 disabled:opacity-40 disabled:cursor-not-allowed'

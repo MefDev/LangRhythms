@@ -2,6 +2,9 @@ import { ReactComponent as Pattern } from '@/assets/patterns/home-pattern.svg'
 import { ReactComponent as Abjd } from '@/assets/abjd.svg'
 import { itemSlideUp, listAnimation, slideToLeft } from '@/utils/Animation'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '@/utils/routes'
+
 
 export default function Hero() {
   return (
@@ -64,9 +67,16 @@ export default function Hero() {
 
         <motion.button
           variants={itemSlideUp}
-          className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-lg shadow-md shadow-primary-100 text-white capitalize font-bold text-sm hover:bg-primary-100/90'
+
         >
+          <Link
+          className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-lg shadow-md shadow-primary-100 text-white capitalize font-bold text-sm hover:bg-primary-100/90'
+          to={ROUTES.SIGNUP}
+
+          >
+
           Get Started
+          </Link>
         </motion.button>
       </motion.div>
       <motion.div

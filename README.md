@@ -1,6 +1,8 @@
 # LangRhythms
 Welcome to LangRhythms, a foreign language learning website for language learners.
 
+## [`Demo`](https://lang-rhythms.vercel.app/)
+
 ## Description:
 
 Welcome to LangRhythms, a foreign language learning website designed for learning Tamazight, Darija, and Arabic. This platform aims to help language learners, especially beginners, master writing and pronouncing different Amazigh and Arabic letters while providing access to thousands of interactive and fun lessons to improve their comprehension of the Moroccan language, Darija.

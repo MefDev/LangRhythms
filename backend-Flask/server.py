@@ -10,6 +10,8 @@ from models import db, User
 from config import SECRET_KEY
 from flask import session as login_session
 
+from darija_API import ahlan_word, marhban_word
+from arabic_API import arabic_greetings_first_lesson, arabic_alphabets_pronouciation
 
 
 # Configure application
@@ -99,8 +101,8 @@ def signup():
         "id": new_user.id,
         "email": new_user.email,
         "name": new_user.name
-       
     })
+   
  
 @app.after_request
 def refresh_expiring_jwts(response):
@@ -126,10 +128,36 @@ def logout():
     unset_jwt_cookies(response)
     return redirect("/")
 
-#@app.route("/dashboard")
-#@login_is_required
-#def dashboard():
-#    return f"Hello {session['name']}!"
+
+
+
+
+
+
+ # Arabic api responses
+
+@app.route("/arabic/first-lesson")
+def arabic_greetings():
+ return arabic_greetings_first_lesson
+
+ # Arabic letters responses
+
+
+@app.route("/arabic/alphabets")
+def arabic_alphabets():
+ return arabic_alphabets_pronouciation
+    
+
+
+ # Darija api responses
+@app.route("/darija/words/marhban")
+def darija_words_marhban():
+ return marhban_word
+    
+@app.route("/darija/words/ahlan")
+def darija_words_ahlan():
+ return ahlan_word
+
 
 
 if __name__ == '__main__':

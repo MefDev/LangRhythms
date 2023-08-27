@@ -8,6 +8,10 @@ from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, uns
 
 from models import db, User
 from config import SECRET_KEY
+from flask import session as login_session
+
+from darija_API import ahlan_word, marhban_word
+from arabic_API import arabic_greetings_first_lesson, arabic_alphabets_pronouciation
 
 
 # Configure application
@@ -18,6 +22,7 @@ server_session = Session(app)
 
  
 app.config['SECRET_KEY'] = SECRET_KEY
+app.secret_key = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
 # Databse configuration  Mysql                            Username:password@hostname/databasename
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:''@localhost/flaskreact'
@@ -50,11 +55,12 @@ def login_is_required(function):
 
 #################### NORMAL Routes ########################
 
-@app.route('/logintoken', methods=["POST"])
+@app.route('/login', methods=["POST"])
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-  
+    
+    
     user = User.query.filter_by(email=email).first()
     #if email != "test" or password != "test":
     #    return {"msg": "Wrong email or password"}, 401
@@ -63,17 +69,21 @@ def create_token():
       
     if not bcrypt.check_password_hash(user.password, password):
         return jsonify({"error": "Unauthorized"}), 401
-      
+    
+
+   
     access_token = create_access_token(identity=email)
     #response = {"access_token":access_token}
-  
+    
+    
     return jsonify({
         "email": email,
-        "access_token": access_token
+        "access_token": access_token,
+        "name": user.name
     })
     #return response
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route("/signup", methods=["POST"])
 def signup():
     email = request.json["email"]
     name = request.json["name"]
@@ -87,12 +97,12 @@ def signup():
     new_user = User(name=name, email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
-   
     return jsonify({
         "id": new_user.id,
         "email": new_user.email,
         "name": new_user.name
     })
+   
  
 @app.after_request
 def refresh_expiring_jwts(response):
@@ -118,10 +128,36 @@ def logout():
     unset_jwt_cookies(response)
     return redirect("/")
 
-#@app.route("/dashboard")
-#@login_is_required
-#def dashboard():
-#    return f"Hello {session['name']}!"
+
+
+
+
+
+
+ # Arabic api responses
+
+@app.route("/arabic/first-lesson")
+def arabic_greetings():
+ return arabic_greetings_first_lesson
+
+ # Arabic letters responses
+
+
+@app.route("/arabic/alphabets")
+def arabic_alphabets():
+ return arabic_alphabets_pronouciation
+    
+
+
+ # Darija api responses
+@app.route("/darija/words/marhban")
+def darija_words_marhban():
+ return marhban_word
+    
+@app.route("/darija/words/ahlan")
+def darija_words_ahlan():
+ return ahlan_word
+
 
 
 if __name__ == '__main__':

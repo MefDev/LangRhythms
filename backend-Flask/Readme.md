@@ -19,7 +19,7 @@ Run the following commands:
 After running that command, you could go to http://127.0.0.1:5000
 ###### ROUTES 
 
-- /logintoken
+- /login
 - /signup
 
 

@@ -19,8 +19,17 @@ Run the following commands:
 After running that command, you could go to http://127.0.0.1:5000
 ###### ROUTES 
 
+
+### AUTH ROUTES
 - /login
 - /signup
+
+### API ROUTES for ARABIC
+- /arabic/first-lesson
+- /arabic/alphabets
+### API ROUTES for Darija
+- /darija/words/marhban
+- /darija/words/ahlan
 
 
 #### A) setup google API

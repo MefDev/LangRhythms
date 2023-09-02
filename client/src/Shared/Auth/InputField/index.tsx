@@ -18,13 +18,14 @@ const InputField = <TFieldValues extends FieldValues>({
   type = 'text',
 }: InputFieldProps<TFieldValues>) => (
   <div className='mb-3'>
-    <label className='text-gray-600 mb-2 font-open-sans font-bold inline-block'>
+    <label htmlFor={label.toLowerCase()} className='text-gray-600 mb-2 font-open-sans font-bold inline-block'>
       {label}
     </label>
     <input
       className='block w-full rounded bg-gray-50 outline-none border-none h-14 placeholder:text-gray-500 placeholder:font-open-sans px-4'
       placeholder={placeholder}
       type={type}
+      id={name}
       {...register(name)}
     />
     {error && (

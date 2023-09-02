@@ -14,6 +14,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ src, children }) => {
     <div className='grid lg:grid-cols-3 items-center justify-between h-[100vh] relative'>
       <div className="absolute top-0 left-0 right-0 bottom-0 lg:grid lg:grid-cols-3">
         <Link
+        role='link'
           to={ROUTES.HOME}
           className='col-start-2 absolute top-0 flex px-4 items-center space-x-2 mt-4'
         >

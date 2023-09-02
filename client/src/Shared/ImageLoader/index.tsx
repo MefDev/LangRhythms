@@ -3,8 +3,8 @@ import { AiOutlineLoading } from 'react-icons/ai';
 
 type Props = {
   src: string;
-  alt: string;
-  className: string;
+  alt?: string;
+  className?: string;
 };
 
 const ImgLoader = ({ src, alt, className }: Props) => {
@@ -15,7 +15,7 @@ const ImgLoader = ({ src, alt, className }: Props) => {
   return (
     <div>
       {!loaded && (
-        <div className="absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center">
+        <div data-testid='loading-spinner' className="absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center">
           <AiOutlineLoading className="text-5xl animate-spin fill-primary-100" />
         </div>
       )}

@@ -55,7 +55,7 @@ def login_is_required(function):
 
 #################### NORMAL Routes ########################
 
-@app.route('/login', methods=["POST"])
+@app.route('/auth/login', methods=["POST"])
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -79,28 +79,28 @@ def create_token():
     return jsonify({
         "email": email,
         "access_token": access_token,
-        "name": user.name
+        "fullname": user.fullname
     })
     #return response
 
-@app.route("/signup", methods=["POST"])
+@app.route("/auth/signup", methods=["POST"])
 def signup():
     email = request.json["email"]
-    name = request.json["name"]
+    fullname = request.json["fullname"]
     password = request.json["password"]
    
     user_exists = User.query.filter_by(email=email).first()
     if user_exists:
         return jsonify({"error": "Email already exists"}), 409
-       
+    
     hashed_password = bcrypt.generate_password_hash(password)
-    new_user = User(name=name, email=email, password=hashed_password)
+    new_user = User(fullname=fullname, email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({
         "id": new_user.id,
         "email": new_user.email,
-        "name": new_user.name
+        "fullname": new_user.fullname
     })
    
  

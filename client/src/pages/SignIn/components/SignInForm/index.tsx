@@ -12,7 +12,7 @@ type Inputs = {
   password: string
 }
 
-const SignUpForm: React.FC = () => {
+const SignInForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -74,4 +74,4 @@ const SignUpForm: React.FC = () => {
   )
 }
 
-export default SignUpForm
+export default SignInForm

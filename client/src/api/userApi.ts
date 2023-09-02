@@ -4,7 +4,7 @@ import { User, LoginCredentials, SignUpCredentials } from '@/types/Auth.types'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
     getUsers: builder.query<User[], void>({

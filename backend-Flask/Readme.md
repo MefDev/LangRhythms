@@ -21,8 +21,8 @@ After running that command, you could go to http://127.0.0.1:5000
 
 
 ### AUTH ROUTES
-- /login
-- /signup
+- /auth/signup
+- /auth/login
 
 ### API ROUTES for ARABIC
 - /arabic/first-lesson

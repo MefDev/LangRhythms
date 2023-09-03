@@ -1,6 +1,7 @@
 import express from 'express';
 import { NODE_ENV, PORT, ORIGIN } from './config';
 import cors from 'cors'
+import { Routes } from '@/interfaces/routes.interface';
 
 class App {
 
@@ -8,11 +9,13 @@ class App {
   public env: string;
   public port: string | number;
 
-  constructor() {
+  constructor(routes: Routes[]) {
     this.app = express();
     this.env = NODE_ENV || 'development';
     this.port = PORT || 5000;
+
     this.initializeMiddlewares();
+    this.initializeRoutes(routes);
   }
 
    public listen() {
@@ -24,6 +27,12 @@ class App {
   private initializeMiddlewares() {
     this.app.use(cors({ origin: ORIGIN }));
     this.app.use(express.json());
+  }
+
+  private initializeRoutes(routes: Routes[]){
+    routes.forEach((route) => {
+      this.app.use('/api/v1/', route.router)
+    })
   }
 
 

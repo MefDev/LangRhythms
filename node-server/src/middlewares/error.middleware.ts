@@ -9,7 +9,7 @@ const errorMiddleware = (
 ) => {
   try {
     const status = error.status || 500;
-    const message = error.message || 'Server error accured';
+    const message = error.message || 'Server error occurred';
 
     res.status(status).json({ message });
   } catch (error) {

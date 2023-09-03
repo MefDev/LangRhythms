@@ -1,3 +1,4 @@
+import { makeResponseJson } from '@/helpers';
 import { Router, Request, Response } from 'express';
 
 class IndexRoute {
@@ -13,8 +14,11 @@ class IndexRoute {
   }
 
   private index = (req: Request, res: Response) => {
-    res.send('Hello, World! This is LangRythms');
+    res
+      .status(200)
+      .send(makeResponseJson('Hello World from LangRythms!'));
   };
 }
+
 
 export default IndexRoute;

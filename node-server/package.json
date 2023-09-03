@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-     "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage",
     "dev": "cross-env NODE_ENV=development nodemon"
   },
   "keywords": [],
@@ -14,9 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.13",
+    "@types/node": "^20.5.9",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "nodemon": "^3.0.1",
+    "prisma": "^5.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {

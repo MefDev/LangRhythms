@@ -2,6 +2,7 @@ import express from 'express';
 import { NODE_ENV, PORT, ORIGIN } from './config';
 import cors from 'cors'
 import { Routes } from '@/interfaces/routes.interface';
+import errorMiddleware from '@/middlewares/error.middleware';
 
 class App {
 
@@ -16,6 +17,7 @@ class App {
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
+    this.initializeErrorHandling();
   }
 
    public listen() {
@@ -35,6 +37,9 @@ class App {
     })
   }
 
+  private initializeErrorHandling(){
+    this.app.use(errorMiddleware)
+  }
 
 }
 

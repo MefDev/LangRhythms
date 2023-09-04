@@ -6,3 +6,191 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Language {
+  id           String      @id @default(uuid())
+  name         String      @unique
+  alphabet     Alphabet?
+  vocabulary   Vocabulary?
+  reading      Reading?
+  writing      Writing?
+  grammar      Grammar?
+  alphabetId   String?
+  vocabularyId String?
+  readingId    String?
+  writingId    String?
+  grammarId    String?
+}
+
+model Alphabet {
+  id             String        @id @default(uuid())
+  languageId     String        @unique
+  description    String
+  prerequisite   VowelSection? @relation(fields: [vowelSectionId], references: [id])
+  letters        Letter[]
+  vowelSectionId String?
+  language       Language      @relation(fields: [languageId], references: [id])
+}
+
+model VowelSection {
+  id          String     @id @default(uuid())
+  languageId  String
+  description String
+  vowels      Vowel[]
+  alphabets   Alphabet[]
+}
+
+model Vowel {
+  id              String        @id @default(uuid())
+  vowelsSectionId String
+  description     String
+  symbol          String?
+  shape           String?
+  translation     String
+  pronunciation   String
+  vowelSection    VowelSection? @relation(fields: [vowelSectionId], references: [id])
+  vowelSectionId  String?
+}
+
+model Letter {
+  id              String                 @id @default(uuid())
+  alphabetId      String
+  letter          String
+  translation     String
+  pronunciation   String
+  sound           String?
+  usageWithVowels LetterUsageWithVowel[]
+  usageInWords    LetterUsageInWord[]
+  words           Word[]
+  alphabet        Alphabet               @relation(fields: [alphabetId], references: [id])
+}
+
+model LetterUsageWithVowel {
+  id            String @id @default(uuid())
+  letterId      String
+  vowel         String
+  form          String
+  pronunciation String
+  letter        Letter @relation(fields: [letterId], references: [id])
+}
+
+model LetterUsageInWord {
+  id            String   @id @default(uuid())
+  letterId      String
+  position      Position
+  exampleWordId String
+  exampleWord   Word     @relation(fields: [exampleWordId], references: [id])
+  letter        Letter   @relation(fields: [letterId], references: [id])
+}
+
+enum Position {
+  START
+  MIDDLE
+  END
+}
+
+model Word {
+  id            String              @id @default(uuid())
+  letterId      String
+  word          String
+  translation   String
+  pronunciation String
+  illustration  String?
+  usages        LetterUsageInWord[]
+  letter        Letter              @relation(fields: [letterId], references: [id])
+}
+
+model Vocabulary {
+  id          String             @id @default(uuid())
+  languageId  String             @unique
+  description String
+  lessons     VocabularyLesson[]
+  language    Language           @relation(fields: [languageId], references: [id])
+}
+
+model VocabularyLesson {
+  id           String           @id @default(uuid())
+  vocabularyId String
+  title        String
+  description  String
+  items        VocabularyItem[]
+  vocabulary   Vocabulary       @relation(fields: [vocabularyId], references: [id])
+}
+
+model VocabularyItem {
+  id            String           @id @default(uuid())
+  lessonId      String
+  expression    String
+  symbol        String?
+  translation   String
+  pronunciation String
+  description   String?
+  lesson        VocabularyLesson @relation(fields: [lessonId], references: [id])
+}
+
+model Reading {
+  id          String          @id @default(uuid())
+  languageId  String          @unique
+  description String
+  lessons     ReadingLesson[]
+  language    Language        @relation(fields: [languageId], references: [id])
+}
+
+model ReadingLesson {
+  id            String  @id @default(uuid())
+  readingId     String
+  title         String
+  paragraph     String
+  translation   String
+  pronunciation String
+  audio         String?
+  Reading       Reading @relation(fields: [readingId], references: [id])
+}
+
+model Writing {
+  id          String          @id @default(uuid())
+  languageId  String          @unique
+  description String
+  lessons     WritingLesson[]
+  language    Language        @relation(fields: [languageId], references: [id])
+}
+
+model WritingLesson {
+  id            String  @id @default(uuid())
+  writingId     String
+  title         String
+  topic         String
+  example       String
+  translation   String
+  pronunciation String
+  writing       Writing @relation(fields: [writingId], references: [id])
+}
+
+model Grammar {
+  id          String          @id @default(uuid())
+  languageId  String          @unique
+  description String
+  lessons     GrammarLesson[]
+  language    Language        @relation(fields: [languageId], references: [id])
+}
+
+model GrammarLesson {
+  id        String  @id @default(uuid())
+  grammarId String
+  title     String
+  content   String  @db.Text
+  grammar   Grammar @relation(fields: [grammarId], references: [id])
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  password String
+  fullName String
+  role     UserRole @default(USER)
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}

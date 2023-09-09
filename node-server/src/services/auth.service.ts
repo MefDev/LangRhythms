@@ -3,17 +3,23 @@ import { HttpException } from '@/exceptions/HttpException';
 import { HTTP_STATUS } from '@/utils/contants';
 import validator from 'validator';
 import { hash, genSalt } from 'bcrypt';
-import prisma from '@/db';
 import {
   TokenData,
   DataStoredInToken,
-  User,
 } from '@/interfaces/auth.interface';
 import jwt from 'jsonwebtoken';
 import { isEmpty } from '@/utils';
+import UserRepository from '@/data/repositories/userRepo';
+import { User } from '@prisma/client';
 
 class AuthService {
-  public async signUp(userData: CreateUserDto) {
+  private userRepo: UserRepository;
+
+  constructor(userRepo: UserRepository) {
+    this.userRepo = userRepo;
+  }
+
+  public async signUp(userData: CreateUserDto): Promise<{ cookie: string; newUser: User }> {
     if (isEmpty(userData))
       throw new HttpException(
         HTTP_STATUS.BAD_REQUEST,
@@ -34,16 +40,17 @@ class AuthService {
       );
 
     // Validate fullName
-    if (fullName && (fullName.length < 3 || fullName.length > 50))
+    if (
+      !fullName ||
+      (fullName && (fullName.length < 3 || fullName.length > 50))
+    )
       throw new HttpException(
         HTTP_STATUS.BAD_REQUEST,
         'Name must be between 3 to 50 characters.',
       );
 
     // Check if user exists
-    const userExists = await prisma.user.findUnique({
-      where: { email },
-    });
+    const userExists = await this.userRepo.findUserByEmail(email);
 
     if (userExists)
       throw new HttpException(
@@ -53,15 +60,13 @@ class AuthService {
 
     // Hashing password
     const salt = await genSalt(10);
-    const hashedPassword = await hash(password, salt);
+    const hashedPassword: string = await hash(password, salt);
 
     // Create new user
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        fullName,
-        password: hashedPassword,
-      },
+    const newUser = await this.userRepo.createUser({
+      email,
+      fullName,
+      password: hashedPassword,
     });
 
     // get the Jwt token
@@ -99,6 +104,5 @@ class AuthService {
     };
   }
 }
-
 
 export default AuthService;

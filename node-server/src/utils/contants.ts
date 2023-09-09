@@ -1,4 +1,7 @@
 const HTTP_STATUS = {
+  OK: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
   BAD_REQUEST: 400,
   CONFLICT: 409,
   INTERNAL_SERVER_ERROR: 500,
@@ -11,5 +14,10 @@ const HTTP_STATUS = {
   GATEWAY_TIMEOUT: 504,
 };
 
+const API_ROUTES = {
+  API_PREFIX: '/api/v1',
+  AUTH: '/auth',
+  SIGN_UP: 'signUp',
+};
 
-export { HTTP_STATUS }
+export { HTTP_STATUS, API_ROUTES };

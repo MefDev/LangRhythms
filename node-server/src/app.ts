@@ -1,8 +1,9 @@
 import express from 'express';
-import { NODE_ENV, PORT, ORIGIN, API_PREFIX } from './config';
+import { NODE_ENV, PORT, ORIGIN } from './config';
 import cors from 'cors'
 import { Routes } from '@/interfaces/routes.interface';
 import errorMiddleware from '@/middlewares/error.middleware';
+import { API_ROUTES } from './utils/contants';
 
 class App {
 
@@ -33,7 +34,7 @@ class App {
 
   private initializeRoutes(routes: Routes[]){
     routes.forEach((route) => {
-      this.app.use(API_PREFIX, route.router)
+      this.app.use(API_ROUTES.API_PREFIX, route.router)
     })
   }
 

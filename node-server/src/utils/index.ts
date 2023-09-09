@@ -1,13 +1,14 @@
-export function isEmpty(obj: any): boolean {
-    if (obj === null || obj === undefined) return true;
 
-    if (typeof obj === 'string' || Array.isArray(obj)) {
-        return obj.length === 0;
+ export const isEmpty = (value: string | number | object): boolean => {
+    if (value === null) {
+      return true;
+    } else if (typeof value !== 'number' && value === '') {
+      return true;
+    } else if (typeof value === 'undefined' || value === undefined) {
+      return true;
+    } else if (value !== null && typeof value === 'object' && !Object.keys(value).length) {
+      return true;
+    } else {
+      return false;
     }
-
-    if (typeof obj === 'object') {
-        return Object.keys(obj).length === 0;
-    }
-
-    return false;
-}
+  };

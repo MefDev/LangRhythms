@@ -5,7 +5,7 @@ const initStatus: IResponseStatus = {
   success: false,
   data: null,
   error: null,
-  timestamp: null,
+  timestamp: '',
 };
 
 const makeResponseJson = (data: any, success = true) => {

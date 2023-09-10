@@ -1,13 +1,12 @@
 import Layout from '@/Shared/Layout'
+import Blog from '@/pages/Blog'
+import Post from '@/pages/Blog/Post'
+import Home from '@/pages/Home'
+import SignIn from '@/pages/SignIn'
+import SignUp from '@/pages/SignUp'
 import { ROUTES } from '@/utils/routes'
-import { Suspense, lazy } from 'react'
+import { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-const Blog = lazy(() => import('@/pages/Blog'));
-const Post = lazy(() => import('@/pages/Blog/Post'));
-const Home = lazy(() => import('@/pages/Home'));
-const SignIn = lazy(() => import('@/pages/SignIn'));
-const SignUp = lazy(() => import('@/pages/SignUp'));
-
 
 const AppRoute = () => {
   return (

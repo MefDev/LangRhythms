@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { signUpSchema } from '@/utils/FormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -6,7 +6,6 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/utils/routes'
 import InputField from '@/Shared/Auth/InputField'
-import { useSignupMutation } from '@/api/userApi'
 
 type Inputs = {
   fullname: string
@@ -21,24 +20,12 @@ const SignUpForm: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(signUpSchema) })
 
-  const [signUp, {isLoading, isError, isSuccess}] = useSignupMutation()
-
   const onSubmit = (data: Inputs) => {
-    signUp(data)
+    console.log(data)
   }
-  useEffect(() => {
-    if(isSuccess) console.log('success')
-  }, [isSuccess])
 
   return (
-    <>
-    {isLoading && <div>loading...</div>
-
-    }
     <form onSubmit={handleSubmit(onSubmit)} className='max-w-xl w-full'>
-      {isError && <div>
-        error here
-        </div>}
       <h1 className='text-4xl text-center font-raleway mb-8 font-bold capitalize'>
         Create your free account
       </h1>
@@ -93,7 +80,6 @@ const SignUpForm: React.FC = () => {
         </button>
       </div>
     </form>
-    </>
   )
 }
 

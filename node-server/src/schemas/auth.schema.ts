@@ -22,4 +22,12 @@ export const SignupSchema = z.object({
       }),
   }),
 });
+
+export const SignInSchema = z.object({
+  body: z.object({
+    email: z.string().email(),
+    password: z.string()
+  }),
+});
 export type SignupSchema = z.infer<typeof SignupSchema>['body'];
+export type SignInSchema = z.infer<typeof SignInSchema>['body'];

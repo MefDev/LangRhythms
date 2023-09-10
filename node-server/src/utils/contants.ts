@@ -18,6 +18,7 @@ const API_ROUTES = {
   API_PREFIX: '/api/v1',
   AUTH: '/auth',
   SIGN_UP: 'signUp',
+  SIGN_IN: 'signIn',
 };
 
 export { HTTP_STATUS, API_ROUTES };

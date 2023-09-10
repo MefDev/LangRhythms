@@ -21,6 +21,15 @@ class AuthController {
       next(error);
     }
   };
+  public signIn = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userData: CreateUserDto = req.body;
+      const { user, token } = await this.authService.signIn(userData);
+      res.status(HTTP_STATUS.ACCEPTED).json(makeResponseJson({ user, token }));
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default AuthController;

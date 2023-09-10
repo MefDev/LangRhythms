@@ -1,7 +1,7 @@
 import AuthController from "@/controllers/auth.controller";
 import { Routes } from "@/interfaces/routes.interface";
 import { validate } from "@/middlewares/validation.middleware";
-import { SignupSchema } from "@/schemas/auth.schema";
+import { SignInSchema, SignupSchema } from "@/schemas/auth.schema";
 import { API_ROUTES } from "@/utils/contants";
 import { Router } from "express";
 
@@ -18,6 +18,7 @@ class AuthRoute implements Routes {
 
 	private initializeRoutes() {
 		this.router.post(`${this.path}/${API_ROUTES.SIGN_UP}`, validate(SignupSchema), this.authController.signUp)
+		this.router.post(`${this.path}/${API_ROUTES.SIGN_IN}`, validate(SignInSchema), this.authController.signIn)
 	}
 }
 

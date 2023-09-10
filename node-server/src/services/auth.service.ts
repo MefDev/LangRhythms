@@ -4,7 +4,6 @@ import { HTTP_STATUS } from '@/utils/contants';
 import validator from 'validator';
 import { hash, genSalt } from 'bcrypt';
 import {
-  TokenData,
   DataStoredInToken,
 } from '@/interfaces/auth.interface';
 import jwt from 'jsonwebtoken';
@@ -19,36 +18,8 @@ class AuthService {
     this.userRepo = userRepo;
   }
 
-  public async signUp(userData: CreateUserDto): Promise<{ cookie: string; newUser: User }> {
-    if (isEmpty(userData))
-      throw new HttpException(
-        HTTP_STATUS.BAD_REQUEST,
-        'All fields must be filled.',
-      );
-
+  public async signUp(userData: CreateUserDto): Promise<{ token: string; newUser: Omit<User, 'password'> }> {
     const { email, password, fullName } = userData;
-
-    // Validate email
-    if (!validator.isEmail(email))
-      throw new HttpException(HTTP_STATUS.BAD_REQUEST, 'Invalid email format.');
-
-    // Validate Password
-    if (!validator.isStrongPassword(password))
-      throw new HttpException(
-        HTTP_STATUS.BAD_REQUEST,
-        'Password does not meet the required criteria.',
-      );
-
-    // Validate fullName
-    if (
-      !fullName ||
-      (fullName && (fullName.length < 3 || fullName.length > 50))
-    )
-      throw new HttpException(
-        HTTP_STATUS.BAD_REQUEST,
-        'Name must be between 3 to 50 characters.',
-      );
-
     // Check if user exists
     const userExists = await this.userRepo.findUserByEmail(email);
 
@@ -63,30 +34,23 @@ class AuthService {
     const hashedPassword: string = await hash(password, salt);
 
     // Create new user
-    const newUser = await this.userRepo.createUser({
+    const newUser  = await this.userRepo.createUser({
       email,
       fullName,
       password: hashedPassword,
     });
 
     // get the Jwt token
-    const tokenData = this.createToken(newUser);
+    const token = this.createToken(newUser);
 
-    // create the cookie
-    const cookie = this.createCookie(tokenData);
     return {
-      cookie,
-      newUser,
+      token,
+      newUser: {email: newUser.email, fullName: newUser.fullName, role: newUser.role, id: newUser.id},
     };
   }
 
-  // Set Cookie
-  public createCookie(tokenData: TokenData): string {
-    return `Authorization=${tokenData.token}; HttpOnly; Secure; SameSite=Strict; Max-Age=${tokenData.expiresIn}`;
-  }
-
   // create jwt token
-  public createToken(user: User): TokenData {
+  public createToken(user: User):  string {
     const expiresIn = 60 * 60;
     const secret = process.env.JWT_SECRET;
 
@@ -98,10 +62,7 @@ class AuthService {
       _id: user.id,
     };
 
-    return {
-      expiresIn,
-      token: jwt.sign(dataStoredInToken, secret, { expiresIn }),
-    };
+    return jwt.sign(dataStoredInToken, secret, { expiresIn })
   }
 }
 

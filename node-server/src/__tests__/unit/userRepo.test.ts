@@ -1,5 +1,5 @@
 import UserRepository from '@/data/repositories/userRepo';
-import { prismaMock } from '@/mocks/prismaSingleton';
+import { prismaMock } from '@/tests/mocks/prismaSingleton';
 import { UserRole } from '@prisma/client';
 import { mockReset } from 'jest-mock-extended';
 

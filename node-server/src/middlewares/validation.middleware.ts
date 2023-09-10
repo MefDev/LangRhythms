@@ -24,7 +24,7 @@ export const validate =
         next(
           new HttpException(
             HTTP_STATUS.BAD_REQUEST,
-            `SignUp Validation Error${errorMessages.length > 1 ? 's' : ''}: ${errorMessages.join(', ')}`
+            `Auth Validation Error${errorMessages.length > 1 ? 's' : ''}: ${errorMessages.join(', ')}`
           )
         )
       } else {

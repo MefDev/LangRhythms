@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "test:coverage": "jest --coverage",
     "dev": "cross-env NODE_ENV=development nodemon",
     "test:int": "./scripts/run-integration.sh",
     "test:unit": "jest -c jest.config.unit.js"

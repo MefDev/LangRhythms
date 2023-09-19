@@ -1,8 +1,6 @@
-import {  screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import AuthLayout from '.'
 import { renderWithRouter } from '@/utils/Tests/TestUtils'
-
-
 
 describe('Auth Layout', () => {
   it('renders without errors', () => {

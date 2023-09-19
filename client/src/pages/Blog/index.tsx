@@ -45,8 +45,8 @@ const Blog: FC = () => {
   return (
     <>
       <section className='py-32 mb-20 mx-auto max-w-screen-xl xl:px-0 px-4'>
-        <Pattern_1 className='absolute top-20 md:opacity-100 opacity-30 sm:flex hidden -right-10'/>
-        <Pattern_2 className='absolute top-32 left-10'/>
+        <Pattern_1 className='absolute top-20 md:opacity-100 opacity-30 sm:flex hidden -right-10' />
+        <Pattern_2 className='absolute top-32 left-10' />
         <SectionTitle
           h3Text='blog'
           h2Text='Get To know more about the cultures and traditions'
@@ -68,20 +68,19 @@ const Blog: FC = () => {
           </motion.p>
           <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
         </motion.div>
-        {isLoading && !isError && <SkeletonLoader/>}
-        {!isLoading && isError && <ErrorState/>}
+        {isLoading && !isError && <SkeletonLoader />}
+        {!isLoading && isError && <ErrorState />}
         {filteredPosts && filteredPosts.length > 0 ? (
           <PostList posts={filteredPosts} />
         ) : (
           <PostNotFound />
         )}
         <div className='relative py-20'>
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil((totalPosts || postsPerPage) / postsPerPage)}
-          onPageChange={handlePageChange}
-        />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil((totalPosts || postsPerPage) / postsPerPage)}
+            onPageChange={handlePageChange}
+          />
         </div>
       </section>
       <NewsLetter />

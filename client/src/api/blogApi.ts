@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import sanityClient from '@/services/client'
 import { Post } from '@/types/Blog.types'
 import { createApi } from '@reduxjs/toolkit/query/react'

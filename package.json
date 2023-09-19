@@ -1,0 +1,16 @@
+{
+  "name": "langrhythms",
+  "version": "1.0.0",
+  "description": "Welcome to LangRhythms, a foreign language learning website for language learners.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  }
+}

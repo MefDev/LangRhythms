@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/utils/routes'
 import InputField from '@/Shared/Auth/InputField'
-
+import { useLoginMutation } from '@/api/userApi'
 type Inputs = {
   email: string
   password: string
@@ -19,8 +19,10 @@ const SignUpForm: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(signInSchema) })
 
+  const[userLogin] = useLoginMutation()
   const onSubmit = (data: Inputs) => {
     console.log(data)
+    userLogin(data)
   }
 
   return (

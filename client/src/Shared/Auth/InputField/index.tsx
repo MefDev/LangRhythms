@@ -18,7 +18,10 @@ const InputField = <TFieldValues extends FieldValues>({
   type = 'text',
 }: InputFieldProps<TFieldValues>) => (
   <div className='mb-3'>
-    <label htmlFor={label.toLowerCase()} className='text-gray-600 mb-2 font-open-sans font-bold inline-block'>
+    <label
+      htmlFor={label.toLowerCase()}
+      className='text-gray-600 mb-2 font-open-sans font-bold inline-block'
+    >
       {label}
     </label>
     <input

@@ -6,7 +6,7 @@ import user from '@testing-library/user-event'
 describe('SignInForm', () => {
   it('renders all form elements', () => {
     render(<SignInForm />, { wrapper: BrowserRouter })
-    const emailInput = screen.getByRole('textbox', {name: /email/i})
+    const emailInput = screen.getByRole('textbox', { name: /email/i })
     const passwordInput = screen.getByLabelText(/password/i)
     const loginButton = screen.getByRole('button', { name: 'Login' })
 
@@ -38,16 +38,18 @@ describe('SignInForm', () => {
     user.clear(emailInput)
     user.clear(passwordInput)
     user.click(emailInput)
-    user.keyboard("zino@gmail.com")
+    user.keyboard('zino@gmail.com')
     user.click(passwordInput)
     user.keyboard('ValidPass*3')
     user.click(loginButton)
 
     await waitFor(() => {
-    expect(screen.queryByText('Email is required')).toBeNull();
-      expect(screen.queryByText('Password is required')).toBeNull();
-      expect(screen.queryByText('Must be a valid email')).toBeNull();
-      expect(screen.queryByText('Password must be at least 6 characters')).toBeNull();
+      expect(screen.queryByText('Email is required')).toBeNull()
+      expect(screen.queryByText('Password is required')).toBeNull()
+      expect(screen.queryByText('Must be a valid email')).toBeNull()
+      expect(
+        screen.queryByText('Password must be at least 6 characters')
+      ).toBeNull()
     })
   })
 })

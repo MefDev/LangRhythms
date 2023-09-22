@@ -13,7 +13,6 @@ describe('ImgLoader Component Tests', () => {
 
     const image = screen.getByAltText(altText)
     expect(image).toHaveClass('opacity-0')
-
   })
 
   it('handles missing alt text gracefully', () => {

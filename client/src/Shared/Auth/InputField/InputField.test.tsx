@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import InputField from '.'
 
-
 describe('Input Field', () => {
   const mock = jest.fn()
   it('renders the elements', () => {
@@ -68,7 +67,7 @@ describe('Input Field', () => {
         name='email'
       />
     )
-	const errorElement = screen.queryByText(/invalid email/i);
-    expect(errorElement).toBeNull();
+    const errorElement = screen.queryByText(/invalid email/i)
+    expect(errorElement).toBeNull()
   })
 })

@@ -177,12 +177,12 @@ def refresh_expiring_jwts(response):
         # Case where there is not a valid JWT. Just return the original respone
         return response
 
-@app.route("/logout")
+@app.route("/auth/logout")
 def logout():
     session.clear()
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
-    return redirect("/")
+    return response;
 
 
 

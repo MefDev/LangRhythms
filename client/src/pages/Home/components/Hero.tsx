@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/utils/routes'
 
-
 export default function Hero() {
   return (
     <section className='py-20 mb-32 relative max-w-screen-xl mx-auto flex items-center justify-between xl:px-0 px-4'>
@@ -65,17 +64,12 @@ export default function Hero() {
           open doors to an enchanting new world.
         </motion.p>
 
-        <motion.button
-          variants={itemSlideUp}
-
-        >
+        <motion.button variants={itemSlideUp}>
           <Link
-          className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-lg shadow-md shadow-primary-100 text-white capitalize font-bold text-sm hover:bg-primary-100/90'
-          to={ROUTES.SIGNUP}
-
+            className='relative bg-primary-100 z-10 px-6 py-3 md:px-8 md:py-4 rounded-lg shadow-md shadow-primary-100 text-white capitalize font-bold text-sm hover:bg-primary-100/90'
+            to={ROUTES.SIGNUP}
           >
-
-          Get Started
+            Get Started
           </Link>
         </motion.button>
       </motion.div>

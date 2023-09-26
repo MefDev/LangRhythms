@@ -131,6 +131,8 @@ dist
 .pnp.*
 
 
+# Backend ignore
+
 pnpm-debug.log*
 lerna-debug.log*
 pyproject.toml
@@ -139,7 +141,6 @@ node_modules
 dist
 dist-ssr
 *.local
-*.json
 config.py
 client_secret.json
 ./instance/flaskdb.db
@@ -157,6 +158,9 @@ flaskdb.db
 *.sw?
 *.pyc
 *pycache*
+__pycache__/
 .__pycache__/
 .__pycache__/*
 __pycache__/
+.pytest_cache
+*flask_session

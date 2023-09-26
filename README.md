@@ -53,9 +53,10 @@ pip install -r requirements.txt
 a folder `config.py`
 
 4. Run the flask app
+```console
+    flask --app app/server run
 ```
-flask run
-```
+5. The backend server will be accessible at `http://localhost:5000/` in your browser.
 
 
 ## Contribution:

@@ -1,25 +1,34 @@
-# flask_testing/test_base.py
-from unittest import TestCase
-from flask import Flask
-from ..app.config import CLIENT_SECRET
-from flask_session import Session
-from ..app.models import db
+# import pytest
+# from app.models import User
+# class AuthActions():
+#     def __init__(self, client, fullname='TestUser', password='TestPass'):
+#         self.client = client
+#         self.fullname = fullname
+#         self.password = password
 
-class BaseTestCase(TestCase):
-    """A base test case for flask-tracking."""
+#     def create(self):
+#         with self.client.application.app_context():
+#             test_user = User(fullname=self.fullname, password=self.password)
+#             test_user.save()
 
-    def create_app(self):
-        app = Flask(__name__)
-        app.config['SESSION_TYPE'] = 'filesystem'
-        app.secret_key = CLIENT_SECRET
-        app.debug = True
-        server_session = Session(app)
-        server_session.init_app(app)
-        return app
+#     def signup(self):
+#         return self.client.post(
+#             '/auth/signup',
+#             data={'fullname': self.fullname, 'email': self.email, 'password': self.password}
+#         )
 
-    def setUp(self):
-        db.create_all()
+#     def login(self):
+#         return self.client.post(
+#             '/auth/login',
+#             data={'username': self.username, 'password': self.password}
+#         )
+    
 
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+#     def logout(self):
+#         return self.client.get('/logout')
+
+# # Define client and other fixtures here ...
+
+# @pytest.fixture
+# def auth(client):
+#     return AuthActions(client)

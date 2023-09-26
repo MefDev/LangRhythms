@@ -6,6 +6,9 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/utils/routes'
 import InputField from '@/Shared/Auth/InputField'
+import { useSignupMutation } from '@/api/userApi'
+import { useNavigate } from "react-router-dom"
+
 
 type Inputs = {
   fullname: string
@@ -20,10 +23,12 @@ const SignUpForm: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: yupResolver(signUpSchema) })
 
+
+  const[adduser] = useSignupMutation()
   const onSubmit = (data: Inputs) => {
     console.log(data)
+    adduser(data)
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='max-w-xl w-full'>
       <h1 className='text-4xl text-center font-raleway mb-8 font-bold capitalize'>

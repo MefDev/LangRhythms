@@ -12,17 +12,21 @@ Run the following commands:
 1) Make sure that you've already installed python, sqlite3, and Flask. Then, write the following command:
 
 ##### 1-1: to run server.py
+ ### Make sure that you already in the backend-Flask folder otherwise the command will not run
 
 ```console
-    flask --app server run
+    flask --app app/server run
 ```
 After running that command, you could go to http://127.0.0.1:5000
 ###### ROUTES 
 
 
 ### AUTH ROUTES
+## Normal auth
 - /auth/signup
 - /auth/login
+## Google auth
+- /api/google/auth/login
 
 ### API ROUTES for ARABIC
 - /arabic/first-lesson
@@ -48,7 +52,7 @@ Run the following commands:
  1-2)You may have to create OAuth Consent Screen. Just enter your Flask app name and your email address in the user support & developer email and click 'Save and continue'.
   
   ![OAuth App information](https://res.cloudinary.com/practicaldev/image/fetch/s--z7SYnWLF--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4q7u354tyh7d4go864vl.png)
- https://res.cloudinary.com/practicaldev/image/fetch/s--zAbdkRLx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iqjjdwqas75a42ncsky0.png
+ ![OAuth App information](https://res.cloudinary.com/practicaldev/image/fetch/s--zAbdkRLx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iqjjdwqas75a42ncsky0.png)
 
 - After that go back to credentials tab and edit your OAuth Client ID. Add new authorized URI to redirect your logins through:
 
@@ -60,21 +64,4 @@ Run the following commands:
 CLIENT_ID = "client ID"
 CLIENT_SECRET = "secret key"
 SECRET_KEY = "secret key for the app"
-    
 ```
-
-
-
-2) Make sure that you are oppening a new terminal and running that command bellow
-
-```console
-    flask --app google_api run -p 8000
-```
-After running that command, you could go to http://127.0.0.1:8000
-###### ROUTES 
-- /login
-
-
-
-
-

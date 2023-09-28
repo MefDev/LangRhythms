@@ -12,6 +12,8 @@ from flask import session as login_session
 import json
 from ..darija_API import ahlan_word, marhban_word
 from ..arabic_API import arabic_greetings_first_lesson, arabic_alphabets_pronouciation
+from ..tests.constants import CONNECT_DB_FULL_URL
+from markupsafe import escape
 
 ## google modules
 import pathlib
@@ -20,6 +22,7 @@ from google_auth_oauthlib.flow import Flow
 import google.auth.transport.requests
 from pip._vendor import cachecontrol
 import os
+
 
 
 # Configure application
@@ -69,25 +72,27 @@ def login_is_required(function):
 
 @app.route('/auth/login', methods=["POST"])
 def create_token():
+    """Login to the app, then return access token with the data"""
+    # Retrieve the data from the client
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
-    user = User.query.filter_by(email=email).first()
-    if user is None:
+    current_user = User.query.filter_by(email=email).first()
+    #If the current user doesn't correspond to the one in the db
+    if current_user is None:
         return jsonify({"error": "Wrong email or passwords"}), 401
-
-    if not bcrypt.check_password_hash(user.password, password):
+    
+    # check if the hashed password is the same as the unhashed one the user has entered
+    if not bcrypt.check_password_hash(current_user.password, password):
         return jsonify({"error": "Unauthorized"}), 401
 
     access_token = create_access_token(identity=email)
-    # response = {"access_token":access_token}
 
     return jsonify({
         "email": email,
         "access_token": access_token,
-        "fullname": user.fullname
+        "fullname": current_user.fullname
     })
-    # return response
 
 
 @app.route("/auth/signup", methods=["POST"])
@@ -177,13 +182,48 @@ def refresh_expiring_jwts(response):
         # Case where there is not a valid JWT. Just return the original respone
         return response
 
+
+
+def get_user_data(db_url, querry_text):
+    from sqlalchemy import create_engine, text
+    data = []
+    engine = create_engine(db_url)
+    with engine.connect() as conn:
+        for id, row in enumerate(conn.execute(text(querry_text))):
+                user = {"id": id, "userId": row.id, "fullname": row.fullname, "email": row.email}
+                data.append(user)
+    data_obj = {
+        "data": data
+    }
+    return data_obj
+
+@app.route("/users")
+def get_users():
+    """Get the users from the db"""
+    query = "SELECT id, fullname, email FROM users"
+    user_data = get_user_data(CONNECT_DB_FULL_URL, query)
+    return jsonify(user_data)
+
+@app.route("/users/<int:id>")
+def show_user_data(id):
+    """Show a particular data depending on the user"""
+    query = "SELECT id, fullname, email FROM users"
+    user_data = get_user_data(CONNECT_DB_FULL_URL, query)
+    length = len(user_data["data"]) - 1
+    if (int(id) <= length):
+        return jsonify(user_data["data"][int(id)]), 200
+    else:
+        return jsonify({
+            "error": "Unkown user id, try a different one"
+        }), 404
+
+
 @app.route("/auth/logout")
 def logout():
     session.clear()
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
-    return response;
-
+    return response, 200;
 
 
 

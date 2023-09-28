@@ -72,25 +72,27 @@ def login_is_required(function):
 
 @app.route('/auth/login', methods=["POST"])
 def create_token():
+    """Login to the app, then return access token with the data"""
+    # Retrieve the data from the client
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
-    user = User.query.filter_by(email=email).first()
-    if user is None:
+    current_user = User.query.filter_by(email=email).first()
+    #If the current user doesn't correspond to the one in the db
+    if current_user is None:
         return jsonify({"error": "Wrong email or passwords"}), 401
-
-    if not bcrypt.check_password_hash(user.password, password):
+    
+    # check if the hashed password is the same as the unhashed one the user has entered
+    if not bcrypt.check_password_hash(current_user.password, password):
         return jsonify({"error": "Unauthorized"}), 401
 
     access_token = create_access_token(identity=email)
-    # response = {"access_token":access_token}
 
     return jsonify({
         "email": email,
         "access_token": access_token,
-        "fullname": user.fullname
+        "fullname": current_user.fullname
     })
-    # return response
 
 
 @app.route("/auth/signup", methods=["POST"])
@@ -202,22 +204,25 @@ def get_users():
     user_data = get_user_data(CONNECT_DB_FULL_URL, query)
     return jsonify(user_data)
 
-# Needs to return to this: 29sep
-@app.route("/users?id=<id>")
+@app.route("/users/<int:id>")
 def show_user_data(id):
+    """Show a particular data depending on the user"""
     query = "SELECT id, fullname, email FROM users"
     user_data = get_user_data(CONNECT_DB_FULL_URL, query)
-    return jsonify(user_data.data[id])
-
-
-
+    length = len(user_data["data"]) - 1
+    if (int(id) <= length):
+        return jsonify(user_data["data"][int(id)]), 200
+    else:
+        return jsonify({
+            "error": "Unkown user id, try a different one"
+        }), 404
 
 @app.route("/auth/logout")
 def logout():
     session.clear()
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
-    return response;
+    return response, 200;
 
 
 

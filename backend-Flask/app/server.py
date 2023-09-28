@@ -12,6 +12,8 @@ from flask import session as login_session
 import json
 from ..darija_API import ahlan_word, marhban_word
 from ..arabic_API import arabic_greetings_first_lesson, arabic_alphabets_pronouciation
+from ..tests.constants import CONNECT_DB_FULL_URL
+from markupsafe import escape
 
 ## google modules
 import pathlib
@@ -20,6 +22,7 @@ from google_auth_oauthlib.flow import Flow
 import google.auth.transport.requests
 from pip._vendor import cachecontrol
 import os
+
 
 
 # Configure application
@@ -177,13 +180,44 @@ def refresh_expiring_jwts(response):
         # Case where there is not a valid JWT. Just return the original respone
         return response
 
+
+
+def get_user_data(db_url, querry_text):
+    from sqlalchemy import create_engine, text
+    data = []
+    engine = create_engine(db_url)
+    with engine.connect() as conn:
+        for id, row in enumerate(conn.execute(text(querry_text))):
+                user = {"id": id, "userId": row.id, "fullname": row.fullname, "email": row.email}
+                data.append(user)
+    data_obj = {
+        "data": data
+    }
+    return data_obj
+
+@app.route("/users")
+def get_users():
+    """Get the users from the db"""
+    query = "SELECT id, fullname, email FROM users"
+    user_data = get_user_data(CONNECT_DB_FULL_URL, query)
+    return jsonify(user_data)
+
+# Needs to return to this: 29sep
+@app.route("/users?id=<id>")
+def show_user_data(id):
+    query = "SELECT id, fullname, email FROM users"
+    user_data = get_user_data(CONNECT_DB_FULL_URL, query)
+    return jsonify(user_data.data[id])
+
+
+
+
 @app.route("/auth/logout")
 def logout():
     session.clear()
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
     return response;
-
 
 
 

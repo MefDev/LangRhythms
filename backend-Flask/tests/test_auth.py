@@ -1,12 +1,14 @@
 import requests
 import json
 from unittest import TestCase, skipIf
+from unittest.mock import Mock, patch
 from datasets_test import *
-from constants import CONNECT_DB_FULL_URL, BASE_URL
+from constants import CONNECT_DB_FULL_URL, BASE_URL, ABSTRACT_API_URL
 from sqlalchemy import select, create_engine
 import sys
 sys.path.append("..")
 from app.models import User
+from app.config import ABSTRACT_API_KEY
 
 
 # helper functions
@@ -47,6 +49,11 @@ def get_users():
         return None
 
 
+def get_abstract_api_response(abstract_key, email="johnsmith@gmail.com"):
+        """Get the api response"""
+        api_url = f"{ABSTRACT_API_URL}?api_key={abstract_key}&email={email}"
+        return requests.get(api_url)
+
 # global variables
 login_url = urljoin(BASE_URL, "auth/login")
 signup_url = urljoin(BASE_URL, "auth/signup")
@@ -83,26 +90,48 @@ class LoginTest(TestCase):
         login_success_status_code = check_post_status_code(
             login_url, dataset1_success, headers)
         self.assertEqual(login_success_status_code, 200)
-        print(login_success_status_code)
+        
 
     def test__login_request_post_error_pass(self):
         """Test if the user enter an UNAUTHORIZED password to log"""
         login_err_status_code = check_post_status_code(
             login_url, dataset2_login_err, headers)
         self.assertEqual(login_err_status_code, 401)
-        print(login_err_status_code)
+        
 
     def test__login_request_post_error__mix_email_pass(self):
         """Test if the user enter an UNAUTHORIZED password or email to log"""
         login_err_status_code = check_post_status_code(
             login_url, dataset3_login_err, headers)
         self.assertEqual(login_err_status_code, 401)
-        print(login_err_status_code)
+        
 
 
 class AbstractApiTest(TestCase):
     """This class is an integration test for Abstaract api"""
 
-    def test_request_response(self):
-        response = requests.get()
+    def test_request_response_success(self):
+        """Everything is appropriate"""
+        response = get_abstract_api_response(ABSTRACT_API_KEY)
         self.assertTrue(response.ok)
+    
+    # needs to return to patch unitttest (For future reference)
+    @patch("test_auth.requests.get")
+    def test_request_response_success_mock(mock_get):
+        """Everything is appropriate"""
+        
+        mock_get.assertTrue = True
+        response = get_abstract_api_response(ABSTRACT_API_KEY)
+        print(response)
+        
+    def test_request_response_unauthorized(self):
+        """The abstact key wasn't correct"""
+        response = get_abstract_api_response("ABSTRACT_API_KEY")
+        self.assertFalse(response.ok)
+    def test_request_response_quota_reached(self):
+        oldkey ="ed555b87745f4eb19c69c1d6822c7f55"
+        response = get_abstract_api_response(oldkey)
+        self.assertEqual(response.status_code, 422)
+        print(response.status_code)
+
+    

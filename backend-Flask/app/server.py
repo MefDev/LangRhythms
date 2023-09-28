@@ -217,6 +217,7 @@ def show_user_data(id):
             "error": "Unkown user id, try a different one"
         }), 404
 
+
 @app.route("/auth/logout")
 def logout():
     session.clear()

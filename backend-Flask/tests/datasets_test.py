@@ -30,5 +30,6 @@ dataset_already_registered_err = {
     "password":"ahmed123@.a"
 }
 
-login_url = "http://127.0.0.1:5000/auth/login"
-signup_url = "http://127.0.0.1:5000/auth/signup"
+## sql config paths
+
+

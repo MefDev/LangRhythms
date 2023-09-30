@@ -14,6 +14,8 @@ get_abstract_api_response(ABSTRACT_API_KEY)
 # global variables
 login_url = urljoin(BASE_URL, "auth/login")
 signup_url = urljoin(BASE_URL, "auth/signup")
+get_users_url = urljoin(BASE_URL, "users")
+get_uniq_user_url = urljoin(BASE_URL, "users/1")
 is_registed_user = is_email_registed_db(
     CONNECT_DB_FULL_URL, datasets_register_success["email"])
 
@@ -81,7 +83,6 @@ class AbstractApiResponseTest(TestCase):
         response = get_abstract_api_response("ABSTRACT_API_KEY")
         self.assertIsNone(response)
         
-    # 
 class AbstractApiErrStatusTest(TestCase):
     """Check the status of each response"""
     @patch("test_auth.requests.get")
@@ -123,3 +124,62 @@ class AbstractApiErrStatusTest(TestCase):
         mock_get.return_value.status_code = 503
         status_code = get_abstract_api_status_code(ABSTRACT_API_KEY)
         self.assertEqual(status_code, 503)
+    
+
+class usersTest(TestCase):
+    @patch("test_auth.requests.get")
+    def test_get_users_response_success(self, mock_get):
+        user1 = {
+        "email": "ahmed@hotmail.com",
+        "fullname": "Ahmed Awad",
+        "id": 0,
+        "userId": "0faf7767dce242dc9682e70122f4b4ad"
+        }
+        user2 = {
+            "email": "ahmed@yahoo.com",
+            "fullname": "Ahmed imad",
+            "id": 1,
+            "userId": "017f8024193e4d5db2b92409ec19fa5e"
+            },
+        
+        data = {
+            "data": [user1, user2]
+        }
+        mock_get.return_value.status_code = Mock(ok=200)
+        mock_get.return_value.json.return_value = data
+        res = requests.get(get_users_url)
+        self.assertEqual(res.json(),data)
+    @patch("test_auth.requests.get")
+    def test_get_users_response_not_ok(self, mock_get):
+        data = {
+            "data": []
+        }
+        mock_get.return_value.status_code = Mock(ok=200)
+        mock_get.return_value.json.return_value = data
+        res = requests.get(get_users_url)
+        self.assertEqual(res.json(),data)
+    
+    
+
+    @patch("test_auth.requests.get")
+    def test_particular_user_when_db_populated_and_usr_there(self, mock_get):
+        uniq_usr = {
+            "email": "ahmed@yahoo.com",
+            "fullname": "Ahmed imad",
+            "id": 1,
+            "userId": "017f8024193e4d5db2b92409ec19fa5e"
+        }
+        mock_get.return_value.status_code = Mock(ok=200)
+        mock_get.return_value.json.return_value = uniq_usr
+        res = requests.get(get_uniq_user_url)
+        self.assertEqual(res.json(),uniq_usr)
+
+    @patch("test_auth.requests.get")
+    def test_particular_user_when_db_empty_or_indefined_user(self, mock_get):
+        err = {
+            "error": "Unkown user id, try a different one"
+        }
+        mock_get.return_value.status_code = Mock(ok=404)
+        mock_get.return_value.json.return_value = err
+        res = requests.get(get_uniq_user_url)
+        self.assertEqual(res.json(),err)

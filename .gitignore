@@ -144,7 +144,7 @@ dist-ssr
 config.py
 client_secret.json
 ./instance/flaskdb.db
-flaskdb.db
+instance
 *.db
 # Editor directories and files
 .vscode/*

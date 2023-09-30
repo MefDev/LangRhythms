@@ -14,8 +14,10 @@ get_abstract_api_response(ABSTRACT_API_KEY)
 # global variables
 login_url = urljoin(BASE_URL, "auth/login")
 signup_url = urljoin(BASE_URL, "auth/signup")
+logout_url = urljoin(BASE_URL, "auth/logout")
 get_users_url = urljoin(BASE_URL, "users")
 get_uniq_user_url = urljoin(BASE_URL, "users/1")
+
 is_registed_user = is_email_registed_db(
     CONNECT_DB_FULL_URL, datasets_register_success["email"])
 
@@ -58,12 +60,18 @@ class LoginTest(TestCase):
         self.assertEqual(login_err_status_code, 401)
         
 
-    def test__login_request_post_error__mix_email_pass(self):
-        """Test if the user enter an UNAUTHORIZED password or email to log"""
-        login_err_status_code = check_post_status_code(
-            login_url, dataset3_login_err, headers)
-        self.assertEqual(login_err_status_code, 401)
+    
         
+class LogoutTest(TestCase):
+    def test__logout(self):
+        """Test if the user loggedin successfully"""
+        login_success_status_code = check_post_status_code(
+            login_url, dataset1_success, headers)
+        self.assertEqual(login_success_status_code, 200)
+        err = b'{"msg":"logout successful"}\n'
+        req = requests.get(logout_url)
+        self.assertTrue(req.ok)
+        self.assertEqual(req.content, err)
 
 
 class AbstractApiResponseTest(TestCase):

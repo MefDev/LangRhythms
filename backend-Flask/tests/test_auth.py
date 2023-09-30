@@ -1,62 +1,21 @@
-import requests
-import json
 from unittest import TestCase, skipIf
 from unittest.mock import Mock, patch
 from datasets_test import *
-from constants import CONNECT_DB_FULL_URL, BASE_URL, ABSTRACT_API_URL
-from sqlalchemy import select, create_engine
+from constants import CONNECT_DB_FULL_URL, BASE_URL
+
 import sys
 sys.path.append("..")
 from app.models import User
 from app.config import ABSTRACT_API_KEY
+from helpers_functions import *
 
 
-# helper functions
-
-def urljoin(url, parm):
-    return f"{url}{parm}"
-
-
-def check_post_status_code(url, data, headers):
-    """Make a post request with the corresponding params"""
-    r = requests.post(url, data=json.dumps(data), headers=headers)
-    return r.status_code
-
-
-def check_post_content(url, data, headers):
-    """return the content in json format"""
-    r = requests.post(url, data=json.dumps(data), headers=headers)
-    return json.loads(r.content)
-
-
-def is_email_registed_db(db_abs_url, email):
-    """Check the email is registed on the db"""
-    stmt = select(User).where(User.email == email)
-    engine = create_engine(db_abs_url)
-    is_registed = False
-    with engine.connect() as conn:
-        for row in conn.execute(stmt):
-            if (row.email == email):
-                is_registed = True
-    return is_registed
-
-def get_users():
-    user_url = urljoin(BASE_URL, "users")
-    response = requests.get(user_url)
-    if response.ok:
-        return response
-    else:
-        return None
-
-
-def get_abstract_api_response(abstract_key, email="johnsmith@gmail.com"):
-        """Get the api response"""
-        api_url = f"{ABSTRACT_API_URL}?api_key={abstract_key}&email={email}"
-        return requests.get(api_url)
-
+get_abstract_api_response(ABSTRACT_API_KEY)
 # global variables
 login_url = urljoin(BASE_URL, "auth/login")
 signup_url = urljoin(BASE_URL, "auth/signup")
+get_users_url = urljoin(BASE_URL, "users")
+get_uniq_user_url = urljoin(BASE_URL, "users/1")
 is_registed_user = is_email_registed_db(
     CONNECT_DB_FULL_URL, datasets_register_success["email"])
 
@@ -107,31 +66,120 @@ class LoginTest(TestCase):
         
 
 
-class AbstractApiTest(TestCase):
+class AbstractApiResponseTest(TestCase):
     """This class is an integration test for Abstaract api"""
-
-    def test_request_response_success(self):
-        """Everything is appropriate"""
-        response = get_abstract_api_response(ABSTRACT_API_KEY)
-        self.assertTrue(response.ok)
     
-    # needs to return to patch unitttest (For future reference)
     @patch("test_auth.requests.get")
-    def test_request_response_success_mock(mock_get):
+    def test_request_response_success_ok(self, mock_get):
         """Everything is appropriate"""
-        
-        mock_get.assertTrue = True
+        mock_get.return_value.ok = True
         response = get_abstract_api_response(ABSTRACT_API_KEY)
-        print(response)
-        
-    def test_request_response_unauthorized(self):
-        """The abstact key wasn't correct"""
-        response = get_abstract_api_response("ABSTRACT_API_KEY")
-        self.assertFalse(response.ok)
-    def test_request_response_quota_reached(self):
-        oldkey ="ed555b87745f4eb19c69c1d6822c7f55"
-        response = get_abstract_api_response(oldkey)
-        self.assertEqual(response.status_code, 422)
-        print(response.status_code)
-
+        self.assertTrue(response)
     
+    @patch("test_auth.requests.get")
+    def test_request_response_error_is_not_ok(self, mock_get):
+        """Everything is appropriate"""
+        mock_get.return_value.ok = False
+        response = get_abstract_api_response("ABSTRACT_API_KEY")
+        self.assertIsNone(response)
+        
+class AbstractApiErrStatusTest(TestCase):
+    """Check the status of each response"""
+    @patch("test_auth.requests.get")
+    def test_request_response_unauthorized(self, mock_get):
+        """The abstact key wasn't correct"""
+        mock_get.return_value.status_code = 401
+        status_code = get_abstract_api_status_code("ABSTRACT_API_KEY")
+        self.assertEqual(status_code, 401)
+    @patch("test_auth.requests.get")
+    def test_request_response_quota_reached(self, mock_get):
+        """Quota reached"""
+        oldkey ="ed555b87745f4eb19c69c1d6822c7f55"
+        mock_get.return_value.status_code = 422
+        status_code = get_abstract_api_status_code(oldkey)
+        self.assertEqual(status_code, 422)
+
+    @patch("test_auth.requests.get")
+    def test_request_response_bad_request(self, mock_get):
+        """bad request"""
+        mock_get.return_value.status_code = 429
+        status_code = get_abstract_api_status_code(ABSTRACT_API_KEY)
+        self.assertEqual(status_code, 429)
+    
+    @patch("test_auth.requests.get")
+    def test_request_response_too_many_req(self, mock_get):
+        """too many requests"""
+        mock_get.return_value.status_code = 400
+        status_code = get_abstract_api_status_code(ABSTRACT_API_KEY)
+        self.assertEqual(status_code, 400)
+    @patch("test_auth.requests.get")
+    def test_request_response_enternal_server_err(self, mock_get):
+        """enternal server err"""
+        mock_get.return_value.status_code = 500
+        status_code = get_abstract_api_status_code(ABSTRACT_API_KEY)
+        self.assertEqual(status_code, 500)
+    @patch("test_auth.requests.get")
+    def test_request_response_service_unavailable(self, mock_get):
+        """service unavailable"""
+        mock_get.return_value.status_code = 503
+        status_code = get_abstract_api_status_code(ABSTRACT_API_KEY)
+        self.assertEqual(status_code, 503)
+    
+
+class usersTest(TestCase):
+    @patch("test_auth.requests.get")
+    def test_get_users_response_success(self, mock_get):
+        user1 = {
+        "email": "ahmed@hotmail.com",
+        "fullname": "Ahmed Awad",
+        "id": 0,
+        "userId": "0faf7767dce242dc9682e70122f4b4ad"
+        }
+        user2 = {
+            "email": "ahmed@yahoo.com",
+            "fullname": "Ahmed imad",
+            "id": 1,
+            "userId": "017f8024193e4d5db2b92409ec19fa5e"
+            },
+        
+        data = {
+            "data": [user1, user2]
+        }
+        mock_get.return_value.status_code = Mock(ok=200)
+        mock_get.return_value.json.return_value = data
+        res = requests.get(get_users_url)
+        self.assertEqual(res.json(),data)
+    @patch("test_auth.requests.get")
+    def test_get_users_response_not_ok(self, mock_get):
+        data = {
+            "data": []
+        }
+        mock_get.return_value.status_code = Mock(ok=200)
+        mock_get.return_value.json.return_value = data
+        res = requests.get(get_users_url)
+        self.assertEqual(res.json(),data)
+    
+    
+
+    @patch("test_auth.requests.get")
+    def test_particular_user_when_db_populated_and_usr_there(self, mock_get):
+        uniq_usr = {
+            "email": "ahmed@yahoo.com",
+            "fullname": "Ahmed imad",
+            "id": 1,
+            "userId": "017f8024193e4d5db2b92409ec19fa5e"
+        }
+        mock_get.return_value.status_code = Mock(ok=200)
+        mock_get.return_value.json.return_value = uniq_usr
+        res = requests.get(get_uniq_user_url)
+        self.assertEqual(res.json(),uniq_usr)
+
+    @patch("test_auth.requests.get")
+    def test_particular_user_when_db_empty_or_indefined_user(self, mock_get):
+        err = {
+            "error": "Unkown user id, try a different one"
+        }
+        mock_get.return_value.status_code = Mock(ok=404)
+        mock_get.return_value.json.return_value = err
+        res = requests.get(get_uniq_user_url)
+        self.assertEqual(res.json(),err)

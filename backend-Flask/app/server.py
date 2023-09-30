@@ -7,12 +7,11 @@ from datetime import datetime, timedelta, timezone
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 import requests
 from .models import db, User
-from .config import ABSTRACT_API_KEY, CLIENT_ID, CLIENT_SECRET
+from .config import ABSTRACT_API_KEY, CLIENT_ID, CLIENT_SECRET, CONNECT_DB_FULL_URL
 from flask import session as login_session
 import json
-from ..darija_API import ahlan_word, marhban_word
-from ..arabic_API import arabic_greetings_first_lesson, arabic_alphabets_pronouciation
-from ..tests.constants import CONNECT_DB_FULL_URL
+from .local_api.darija_API import ahlan_word, marhban_word
+from .local_api.arabic_API import arabic_greetings_first_lesson, arabic_alphabets_pronouciation
 from markupsafe import escape
 
 ## google modules
@@ -202,7 +201,7 @@ def get_users():
     """Get the users from the db"""
     query = "SELECT id, fullname, email FROM users"
     user_data = get_user_data(CONNECT_DB_FULL_URL, query)
-    return jsonify(user_data)
+    return jsonify(user_data), 200
 
 @app.route("/users/<int:id>")
 def show_user_data(id):

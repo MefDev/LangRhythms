@@ -72,6 +72,9 @@ def login_is_required(function):
 @app.route('/auth/login', methods=["POST"])
 def create_token():
     """Login to the app, then return access token with the data"""
+
+     # Forget any user_id
+    session.clear()
     # Retrieve the data from the client
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -86,14 +89,16 @@ def create_token():
         return jsonify({"error": "Unauthorized"}), 401
 
     access_token = create_access_token(identity=email)
-
+    
+    # Remember which user has logged in
+    session["user_id"] = current_user.id
     return jsonify({
         "email": email,
         "access_token": access_token,
         "fullname": current_user.fullname
     })
 
-
+# CRUD FUNCTIONALITIES
 @app.route("/auth/signup", methods=["POST"])
 def signup():
     email = request.json["email"]
@@ -119,6 +124,51 @@ def signup():
         })
     else:
         return jsonify({"email": "The email is not valid"}), 409
+
+@app.route("/auth/updatepassword", methods=["POST"])
+def changePassword():
+    email = request.json.get("email", None)
+    current_password = request.json.get("current_password", None)
+    password = request.json.get("password", None)
+    confirm_password = request.json.get("confirm_password", None)
+    current_user = User.query.filter_by(email=email).first()
+    if current_user and bcrypt.check_password_hash(current_user.password, current_password):
+        if password == confirm_password:
+            current_user.password = bcrypt.generate_password_hash(password)
+            db.session.add(current_user)
+            db.session.commit()
+            return jsonify({
+                "success": "The password has changed successfully"
+            }, 200)
+            
+        else:
+            return jsonify({
+                "error": "The password is not a match or the confirmed password doesn't match"
+            }, 409)
+            
+    else:
+        return jsonify({
+                "error": "The email is not a match or the current password doesn't match"
+            }, 409)
+
+        
+@app.route("/auth/deleteuser", methods=["delete"])
+def delteteuser():
+    """Delete a user from db"""
+    current_user_id = session["user_id"]
+    current_user = User.query.filter_by(id=current_user_id).first()
+    if (current_user.id == current_user_id):
+        db.session.delete(current_user)
+        db.session.commit()
+        return jsonify({
+            "success": "The user has been deleted"
+        }, 200)
+    else:
+        return jsonify({
+            "error": "The user has not been deleted successfully"
+            }, 409
+        )
+
 
 
 def send_email_validation_request(key):
@@ -215,6 +265,9 @@ def show_user_data(id):
         return jsonify({
             "error": "Unkown user id, try a different one"
         }), 404
+
+
+
 
 
 @app.route("/auth/logout")

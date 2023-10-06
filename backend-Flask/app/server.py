@@ -1,4 +1,4 @@
-from flask import Flask, session, abort, redirect, request, jsonify
+from flask import Flask, session, abort, redirect, request, jsonify, render_template
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_session import Session
@@ -67,6 +67,10 @@ def login_is_required(function):
     return wrapper
 
 #################### NORMAL Routes ########################
+
+@app.route('/')
+def homepage():
+    return render_template("guide.html")
 
 
 @app.route('/auth/login', methods=["POST"])

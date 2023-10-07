@@ -10,8 +10,10 @@ singleUserNotFoundBtn.addEventListener("click", showSingleUserOnErr)
 function showDataOnSuccess(){
     jsonData = document.querySelector("#get-successs-data")
     jsonData.style.display = "inline-block"
-    previousData = document.querySelector("#get-singleUserData")
-    previousData.style.display = "none"
+    previousData1 = document.querySelector("#get-singleUserData")
+    previousData2 = document.querySelector("#get-singleUserDataNotFound")
+    previousData1.style.display = "none"
+    previousData2.style.display = "none"
     updateResponseRequest("/users")
 }
 function showSingleUserOnSuccess(){

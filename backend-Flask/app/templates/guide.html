@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>Hello</title>
+</head>
+<body>
+    <h1 class="flex justify-center pt-6 pb-6 font-semibold decoration-slate-500 ">LangRythm API Guide</h1>
+    <hr>
+    <div class="mx-auto flex justify-center pt-6">
+        <div class="border border-sky-500 mx-2 pr-12 pl-2 pt-4  pb-4 w-60">
+            <h3 class="font-semibold">Request</h3>
+            <span id="path" class="text-green-500"></span>
+        </div>
+        <div class="border border-sky-500 mx-2 pr-12 pl-2 pt-4 pb-4 w-60">
+            <h3 class="font-semibold">Response</h3>
+            <span id="code-status" class="text-green-500"></span>
+        </div>
+        
+    </div>
+
+    <div class="container mx-auto flex justify-betweeen basis-96	">
+        <div class="mr-44">
+            <div id="get-btn">
+                <p class="border border-green-500 p-2 w-60"><span class="bg-green-400 text-white p-2 rounded-sm text-center	opacity-80	">GET </span>LIST USERS</p>
+            </div>
+           <div id="get-btn-singleUser">
+            <p class="border border-green-500 mt-1 p-2 w-60"><span class="bg-green-400 text-white p-2 rounded-sm text-center opacity-80	">GET </span>SINGAL USER</p>
+           </div>
+           <div id="get-btn-singleUserNotFound">
+            <p class="border border-green-500 mt-1 p-2 w-60"><span class="bg-red-400 text-white p-2 rounded-sm text-center opacity-80	">GET </span>USER NOT FOUND</p>
+           </div>
+          
+        </div>
+         
+        
+        <div id="get-successs-data" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code class="json-data">
+{
+    "data":
+    [
+        {
+            "email": "ahmed@yahoo.com",
+            "fullname": "Ahmed imad",
+            "id": 0,
+            "userId": "017f8024193e4d5dd80"
+        },
+        {
+            "email": "ahmed@aol.com",
+            "fullname": "Ahmed imad",
+            "id": 1,
+            "userId": "02f2ca5e1c154d80d80"
+        },
+        {
+            "email": "ahmed@hotmail.com",
+            "fullname": "Ahmed Awad",
+            "id": 2,
+            "userId": "81e6aff87e9e4d6d80"
+        }
+    ]
+}
+            </code>
+        </pre>
+            
+        </div>
+
+
+
+
+        <div id="get-singleUserData" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code class="singleUserData">
+{
+    "data":
+    [
+        {
+            "email": "ahmed@aol.com",
+            "fullname": "Ahmed imad",
+            "id": 1,
+            "userId": "02f2ca5e1c154d80d80"
+        }
+    ]
+}
+            </code>
+        </pre>
+            
+        </div>
+
+
+
+
+        <div id="get-singleUserDataNotFound" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code>
+{
+    "error": "Unkown user id, try a different one"
+}
+            </code>
+        </pre>
+            
+        </div>
+    </div>
+    
+    
+</body>
+<script src="../static/behavior.js"></script>
+</html>

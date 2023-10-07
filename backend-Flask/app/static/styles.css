@@ -1,0 +1,11 @@
+#get-successs-data, #get-singleUserData, #get-singleUserDataNotFound{
+    display: none;
+    opacity: 75%;
+}
+
+#get-btn, #get-btn-singleUser, #get-btn-singleUserNotFound{
+    cursor: pointer;
+}
+pre{
+    padding:1rem;
+}

@@ -1,41 +1,99 @@
+
+registerUserBtn = document.querySelector("#registerUserBtn")
+registerUserBtnOnErr = document.querySelector("#registerUserBtnOnErr")
+loginUserBtn = document.querySelector("#loginUserBtn")
+loginUserBtnOnErr = document.querySelector("#loginUserBtnOnErr")
+loginUserGoogleBtn = document.querySelector("#loginUserGoogleBtn")
 userContainerBtn = document.querySelector("#get-btn")
 singleUserBtn = document.querySelector("#get-btn-singleUser")
 singleUserNotFoundBtn = document.querySelector("#get-btn-singleUserNotFound")
 
+registerUserBtn.addEventListener("click", ShowPostDataOnSuccess)
+registerUserBtnOnErr.addEventListener("click", ShowPostDataOnErr)
+loginUserBtn.addEventListener("click", ShowPostDataLoginOnSuccess)
+loginUserBtnOnErr.addEventListener("click", ShowPostDataLoginOnErr)
+loginUserGoogleBtn.addEventListener("click", ShowResponseGoogleApi)
 userContainerBtn.addEventListener("click", showDataOnSuccess)
 singleUserBtn.addEventListener("click", showSingleUserOnSuccess)
 singleUserNotFoundBtn.addEventListener("click", showSingleUserOnErr)
      
 
+
+
+/* SHOW Auth POST data */
+function ShowPostDataOnSuccess(){
+    HideAllElements()
+    jsonData = document.querySelector("#registerUserData")
+    jsonData.style.display = "inline-block"
+    updateResponseRequest("/auth/signup")
+}
+function ShowPostDataOnErr(){
+    HideAllElements()
+    jsonData = document.querySelector("#registerUserDataOnErr")
+    jsonData.style.display = "inline-block"
+    updateResponseRequest("/auth/signup", 409)
+}
+
+function ShowPostDataLoginOnSuccess(){
+
+    HideAllElements()
+    jsonData = document.querySelector("#loginUserData")
+    jsonData.style.display = "inline-block"
+    updateResponseRequest("/auth/login")
+
+}
+
+function ShowPostDataLoginOnErr(){
+    HideAllElements()
+    jsonData = document.querySelector("#loginUserDataOnErr")
+    jsonData.style.display = "inline-block"
+    updateResponseRequest("/auth/login", 401)
+
+}
+
+
+/* SHOW Get data */
 function showDataOnSuccess(){
+    HideAllElements()
     jsonData = document.querySelector("#get-successs-data")
     jsonData.style.display = "inline-block"
-    previousData1 = document.querySelector("#get-singleUserData")
-    previousData2 = document.querySelector("#get-singleUserDataNotFound")
-    previousData1.style.display = "none"
-    previousData2.style.display = "none"
     updateResponseRequest("/users")
 }
+
+
 function showSingleUserOnSuccess(){
+    HideAllElements()
     jsonData = document.querySelector("#get-singleUserData")
-    previousData1 = document.querySelector("#get-successs-data")
-    previousData2 = document.querySelector("#get-singleUserDataNotFound")
-    previousData1.style.display = "none"
-    previousData2.style.display = "none"
     jsonData.style.display = "inline-block"
     updateResponseRequest("/users/1")
 }
 
+function ShowResponseGoogleApi(){
+    HideAllElements()
+    jsonData = document.querySelector("#loginUserGoogleData")
+    jsonData.style.display = "inline-block"
+    updateResponseRequest("/api/google/auth/login")
+}
+
+
+/**** Helper functions *****/
 function showSingleUserOnErr(){
+    HideAllElements()
     jsonData = document.querySelector("#get-singleUserDataNotFound")
-    previousData1 = document.querySelector("#get-singleUserData")
-    previousData2 = document.querySelector("#get-successs-data")
-    previousData1.style.display = "none"
-    previousData2.style.display = "none"
     jsonData.style.display = "inline-block"
     updateResponseRequest("/users/101", 404)
    
 }
+
+function HideAllElements(){
+    allDataID = ["#get-singleUserDataNotFound", "#get-singleUserData", "#get-successs-data", "#registerUserData", "#registerUserDataOnErr", "#loginUserData", "#loginUserDataOnErr", "#loginUserGoogleData"]
+    allDataID.map((e) => {
+        data = document.querySelector(e)
+        data.style.display = "none"
+    })
+}
+
+
 
 
 

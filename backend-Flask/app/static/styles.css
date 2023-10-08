@@ -1,9 +1,9 @@
-#get-successs-data, #get-singleUserData, #get-singleUserDataNotFound{
+#get-successs-data, #get-singleUserData, #get-singleUserDataNotFound, #registerUserData, #registerUserDataOnErr, #loginUserData, #loginUserDataOnErr, #loginUserGoogleData{
     display: none;
     opacity: 75%;
 }
 
-#get-btn, #get-btn-singleUser, #get-btn-singleUserNotFound{
+#get-btn, #get-btn-singleUser, #get-btn-singleUserNotFound, #registerUserBtn, #registerUserBtnOnErr, #loginUserBtn, #loginUserBtnOnErr, #loginUserGoogleBtn{
     cursor: pointer;
 }
 pre{

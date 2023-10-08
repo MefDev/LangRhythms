@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../static/styles.css">
-    <title>Hello</title>
+    <title>On maintenance</title>
 </head>
 <body>
     <h1 class="flex justify-center pt-6 pb-6 font-semibold decoration-slate-500 ">LangRythm API Guide</h1>
@@ -24,14 +24,30 @@
 
     <div class="container mx-auto flex justify-betweeen basis-96	">
         <div class="mr-44">
+            <div id="registerUserBtn">
+                <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-green-400 text-white p-2 rounded-sm text-center mr-2	opacity-80	">POST </span> REGISTER USER</p>
+            </div>
+            <div id="registerUserBtnOnErr">
+                <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-red-400 text-white p-2 rounded-sm text-center mr-2	opacity-80	">POST </span> REGISTER USER F</p>
+            </div>
+
+            <div id="loginUserBtn">
+                <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-green-400 text-white p-2 rounded-sm text-center mr-2	opacity-80	">POST </span> LOGIN USER</p>
+            </div>
+            <div id="loginUserBtnOnErr">
+                <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-red-400 text-white p-2 rounded-sm text-center mr-2	opacity-80	">POST </span> LOGIN USER F</p>
+            </div>
+            <div id="loginUserGoogleBtn">
+                <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-green-400 text-white p-2 rounded-sm text-center mr-2	opacity-80	">GET </span> LOGIN USER API</p>
+            </div>
             <div id="get-btn">
-                <p class="border border-green-500 p-2 w-60"><span class="bg-green-400 text-white p-2 rounded-sm text-center	opacity-80	">GET </span>LIST USERS</p>
+                <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-green-400 text-white p-2 rounded-sm text-center mr-2	opacity-80	">GET </span> LIST USERS</p>
             </div>
            <div id="get-btn-singleUser">
-            <p class="border border-green-500 mt-1 p-2 w-60"><span class="bg-green-400 text-white p-2 rounded-sm text-center opacity-80	">GET </span>SINGAL USER</p>
+            <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-green-400 text-white p-2 rounded-sm text-center mr-2 opacity-80	">GET </span> Single USER</p>
            </div>
            <div id="get-btn-singleUserNotFound">
-            <p class="border border-green-500 mt-1 p-2 w-60"><span class="bg-red-400 text-white p-2 rounded-sm text-center opacity-80	">GET </span>USER NOT FOUND</p>
+            <p class="border border-green-500 mt-1 p-2 w-60 ml-2"><span class="bg-red-400 text-white p-2 rounded-sm text-center mr-2 opacity-80	">GET </span> USER NOT FOUND</p>
            </div>
           
         </div>
@@ -103,6 +119,79 @@
         </pre>
             
         </div>
+
+
+        <div id="registerUserData" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code>
+{
+    "email": "ahmed@hotmail.com",
+    "fullname": "Ahmed Awad",
+    "id": 0,
+    "userId": "0faf7767dce242d"
+}
+
+            </code>
+        </pre>
+            
+        </div>
+
+
+        <div id="registerUserDataOnErr" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code>
+{
+    "err": "email already exist or not valid"
+}
+
+            </code>
+        </pre>
+            
+        </div>
+
+
+        <div id="loginUserData" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code>
+{
+        "email": "ahmed@hotmail.com",
+        "fullname": "ahmed awed"
+        "access_token": "bVCaw2L27r3VzxjkbBGP7lo"
+}
+
+            </code>
+        </pre>
+            
+        </div>
+
+        <div id="loginUserDataOnErr" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code>
+{
+    "error": "Wrong email or passwords or invalid email"
+}
+
+            </code>
+        </pre>
+            
+        </div>
+
+    
+        <div id="loginUserGoogleData" class="bg-lime-100 border border-sky-500 rounded-md justify-self-center opacity-80 mt-2">
+            <pre>
+                <code>
+{
+    "email": "ahmed@gmail.com",
+    "fullname": "ahmed awad",
+    "google_id": "105379141047321432591"
+}
+
+            </code>
+        </pre>
+            
+        </div>
+
+       
     </div>
     
     

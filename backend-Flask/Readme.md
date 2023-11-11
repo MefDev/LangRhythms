@@ -1,22 +1,37 @@
 ## BackEnd
-### 1. Install the requirements within `requirements.txt` using pip
-
+To run the backend, follow these steps:
+1. Go to the backend
 ```
-    pip install -r requirements.txt
+cd backend-Flask/
+```
+2. Use Virtual Environment:
+
+Always use a virtual environment for your Flask projects. This allows you to isolate dependencies for each project.
+To create a virtual environment, you can use the following commands:
+```
+python -m venv venv
+source venv/bin/activate  #On Windows, use 'venv\Scripts\activate'
+```
+3. Install dependencies:
+```
+pip install -r requirements.txt
 ```
 
+3. Set up the necessary environment variables and configurations inside
+a file `config.py`
 
-#### A) setup
 
-Run the following commands:
-1) Make sure that you've already installed python, sqlite3, and Flask. Then, write the following command:
-
-##### 1-1: to run server.py
- ### Make sure that you already in the backend-Flask folder otherwise the command will not run
-
+5. Configure some environments variables
+```
+export FLASK_APP=app/server
+```
+6. Run the flask app
 ```console
-    flask --app app/server run
+    flask run
 ```
+5. The backend server will be accessible at `http://localhost:5000/` in your browser.
+
+
 After running that command, you could go to http://127.0.0.1:5000
 ###### ROUTES 
 

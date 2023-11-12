@@ -7,19 +7,22 @@ from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
 from .config.initial_config import APP_SECRET_KEY, JWT_SECRET_KET
+from .models import db
+from .services import bcrypt
+
+
+# make the variables ready to be exported
+bcrypt = Bcrypt()
+jwt = JWTManager()
 
 def create_app():
     """Initialize the app"""
     app = Flask(__name__)
     app.config['SECRET_KEY'] = APP_SECRET_KEY
     
-    # Bcrypt configuration
-    bcrypt = Bcrypt(app) 
-    
     # database(SQLAlchemy) configuration
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///langrythms.db'
-    db = SQLAlchemy()
-    db.init_app(app)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # session configuration
     app.config['SESSION_PERMANENT'] = True
@@ -29,11 +32,20 @@ def create_app():
     # AWJ configuration
     app.config["JWT_SECRET_KEY"] = JWT_SECRET_KET
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
-    jwt = JWTManager(app)
+   
 
     # Start a session
     server_session = Session(app)
+
+    # Initialize extensions with the app
+    db.init_app(app)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
     server_session.init_app(app)
+
+    # Create the database table
+    with app.app_context():
+        db.create_all()
 
 
     # Regiter the auth bluepritn

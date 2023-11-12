@@ -40,21 +40,33 @@ The client app will be accessible at `http://localhost:5173/` in your browser.
 ## BackEnd
 To run the backend, follow these steps:
 
+1. Use Virtual Environment:
 
-1. Change to the backend directory:
+Always use a virtual environment for your Flask projects. This allows you to isolate dependencies for each project.
+To create a virtual environment, you can use the following commands:
 ```
-cd backend
+python -m venv venv
+source venv/bin/activate  #On Windows, use 'venv\Scripts\activate'
 ```
 2. Install dependencies:
 ```
 pip install -r requirements.txt
 ```
-3. Set up the necessary environment variables and configurations inside
-a folder `config.py`
 
-4. Run the flask app
+3. Set up the necessary environment variables and configurations inside
+a file `config.py`
+
+4. Go to the backend
+```
+cd backend-Flask/
+```
+5. Configure some environments variables
+```
+export FLASK_APP=app/server
+```
+6. Run the flask app
 ```console
-    flask --app app/server run
+    flask --app FLASK_APP run
 ```
 5. The backend server will be accessible at `http://localhost:5000/` in your browser.
 

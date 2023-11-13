@@ -1,19 +1,13 @@
 from flask import Flask
 from .blueprints.auth import auth_blueprint
 from .blueprints.docs import docs_blueprint
-from flask_sqlalchemy import SQLAlchemy
+from .blueprints.google_auth import google_auth_blueprint
 from flask_session import Session 
-from flask_jwt_extended import JWTManager
-from flask_bcrypt import Bcrypt
 from datetime import timedelta
 from .config.initial_config import APP_SECRET_KEY, JWT_SECRET_KET
 from .models import db
-from .services import bcrypt
+from .services import bcrypt, jwt
 
-
-# make the variables ready to be exported
-bcrypt = Bcrypt()
-jwt = JWTManager()
 
 def create_app():
     """Initialize the app"""
@@ -51,4 +45,5 @@ def create_app():
     # Regiter the auth bluepritn
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(docs_blueprint, url_prefix='/docs')
+    app.register_blueprint(google_auth_blueprint, url_prefix='/api/google')
     return app

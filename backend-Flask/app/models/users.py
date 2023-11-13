@@ -1,8 +1,9 @@
-from .import db
+from . import db
 from uuid import uuid4
 
   
 def get_uuid():
+    """Get a new UUID"""
     return uuid4().hex
   
 class User(db.Model):

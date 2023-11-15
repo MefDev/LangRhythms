@@ -26,7 +26,7 @@ def register():
     return response
 
 
-@auth_blueprint.route('/logout', methods="POST")
+@auth_blueprint.route('/logout', methods=["POST"])
 @jwt_required()
 def logout():
     """handle the logout POST request"""

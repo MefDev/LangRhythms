@@ -15,7 +15,8 @@ def login():
     response = login_user(email, password)
     return response
 
-@auth_blueprint.route('/register', methods=["POST"])
+
+@auth_blueprint.route('/signup', methods=["POST"])
 def register():
     """handle the register post request"""
     email = request.json["email"]
@@ -24,13 +25,10 @@ def register():
     response = register_user(email, fullname, password)
     return response
 
-@auth_blueprint.route('/logout')
+
+@auth_blueprint.route('/logout', methods="POST")
 @jwt_required()
 def logout():
-    """handle the logout GET request"""
+    """handle the logout POST request"""
     response = logout_user()
     return response
-
-
-
-    

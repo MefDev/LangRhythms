@@ -20,7 +20,7 @@ pip install -r requirements.txt
 3. Set up the necessary environment variables and configurations
 
 ```
-export FLASK_APP=app/server
+export FLASK_APP=app/manage
 ```
 6. Run the flask app
 ```console

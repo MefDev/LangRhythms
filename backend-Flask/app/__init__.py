@@ -42,7 +42,7 @@ def create_app():
         db.create_all()
 
 
-    # Regiter the auth bluepritn
+    # Regiter the auth blueprints
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(docs_blueprint, url_prefix='/docs')
     app.register_blueprint(google_auth_blueprint, url_prefix='/api/google')

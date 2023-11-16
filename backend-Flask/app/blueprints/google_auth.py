@@ -14,4 +14,8 @@ def google_login():
     response = handle_google_login()
     return response
 
+@google_auth_blueprint.errorhandler(401)
+def handle_unauthorized_error(e):
+    return "Authorization required.", 401
+
    

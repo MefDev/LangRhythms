@@ -74,7 +74,7 @@ def login_user(email, password):
     current_user = User.query.filter_by(email=email).first()
 
     # check the password is not matched or current user is uncorrect
-    if not current_user or not bcrypt.check_password_hash(current_user.password, password):
+    if (not current_user or not bcrypt.check_password_hash(current_user.password, password)) or password == "google_auth":
         return jsonify({"error": "Wrong email or passwords"}), 401
 
     # create an access token and refresh token

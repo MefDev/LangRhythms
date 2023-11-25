@@ -1,12 +1,11 @@
 
+"""Those are functions that handle authentification"""
 from flask import jsonify, session, request
-from ..models.users import User
-from ..models import db
-from .api import email_validator_service
-from . import bcrypt
-import os
 from password_strength import PasswordPolicy
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, unset_jwt_cookies, set_access_cookies, set_refresh_cookies
+import os
+from . import bcrypt, db, User
+from .api import email_validator_service
 
 
 def valid_password(password):
@@ -100,7 +99,7 @@ def login_user(email, password):
 
 
 def logout_user():
-    """Logout the user"""
+    """Logout a user"""
     current_user = get_current_user()
     if current_user:
         token = get_jwt_token()

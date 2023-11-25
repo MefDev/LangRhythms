@@ -2,6 +2,8 @@ from flask import Flask
 from .blueprints.auth import auth_blueprint
 from .blueprints.docs import docs_blueprint
 from .blueprints.user import users_blueprint
+from .blueprints.arabic import arabic_blueprint
+from .blueprints.darija import darija_blueprint
 from .blueprints.google_auth import google_auth_blueprint
 from datetime import timedelta
 from .config.initial_config import APP_SECRET_KEY, JWT_SECRET_KET
@@ -41,5 +43,7 @@ def create_app():
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(docs_blueprint, url_prefix='/docs')
     app.register_blueprint(users_blueprint, url_prefix='/users')
+    app.register_blueprint(arabic_blueprint, url_prefix='/arabic')
+    app.register_blueprint(darija_blueprint, url_prefix='/darija')
     app.register_blueprint(google_auth_blueprint, url_prefix='/api/google')
     return app

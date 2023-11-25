@@ -1,6 +1,7 @@
+"""Handle documentation blueprints and routes"""
 from flask import Blueprint, render_template
 from flask_jwt_extended import jwt_required
-from ..services.auth_service import check_invalid_tokens
+from . import auth_service
 
 docs_blueprint = Blueprint("docs", __name__)
 
@@ -14,6 +15,6 @@ def guide():
 @docs_blueprint.before_request
 @jwt_required()
 def check_blacklist():
-        response = check_invalid_tokens()
+        response = auth_service.check_invalid_tokens()
         return response
 

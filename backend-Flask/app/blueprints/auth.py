@@ -1,18 +1,17 @@
+"""Handle Authentication blueprints and routes"""
 from flask import Blueprint, request
-from ..services.auth_service import register_user, login_user, logout_user
 from flask_jwt_extended import jwt_required
+from . import auth_service
 
 auth_blueprint = Blueprint('auth', __name__)
 
-
-# handle authentication routes
 
 @auth_blueprint.route('/login', methods=["POST"])
 def login():
     """handle the login post request"""
     email = request.json["email"]
     password = request.json["password"]
-    response = login_user(email, password)
+    response = auth_service.login_user(email, password)
     return response
 
 
@@ -22,7 +21,7 @@ def register():
     email = request.json["email"]
     fullname = request.json["fullname"]
     password = request.json["password"]
-    response = register_user(email, fullname, password)
+    response = auth_service.register_user(email, fullname, password)
     return response
 
 
@@ -30,5 +29,5 @@ def register():
 @jwt_required()
 def logout():
     """handle the logout POST request"""
-    response = logout_user()
+    response = auth_service.logout_user()
     return response

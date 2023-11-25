@@ -1,5 +1,7 @@
-from . import User
-from flask import jsonify
+from flask import jsonify, session
+from . import User, db, bcrypt
+from .auth_service import valid_password
+
 
 
 def get_populated_users():
@@ -36,7 +38,7 @@ def retrieve_user_data(id):
         length = len(current_data["data"]) - 1
     else:
         return jsonify({"error": "an error has accured while fetching data"}), 404
-    
+
     if (int(id) <= length):
         # retrieve a particular user
         current_user = current_data["data"][int(id)]
@@ -44,3 +46,46 @@ def retrieve_user_data(id):
     else:
         error = {"error": "Unknown user id, try a different one"}
         return jsonify(error), 404
+
+
+def delete_current_user():
+    """Delete a user from db"""
+    current_user_id = session["user_id"]
+    # retrieve current user
+    current_user = User.query.filter_by(id=current_user_id).first()
+    if (current_user.id == current_user_id):
+        # delete current user & save changes
+        db.session.delete(current_user)
+        db.session.commit()
+        return jsonify({
+            "success": "The user has been deleted"
+        }), 200
+    else:
+        return jsonify({
+            "error": "The user has not been deleted successfully"}), 409
+
+
+def change_user_password(email, old_password, new_password, confirm_new_password):
+    """Change a user password"""
+    current_user = User.query.filter_by(email=email).first()
+    if current_user and bcrypt.check_password_hash(current_user.password, old_password):
+        if new_password == confirm_new_password:
+            # check password strength
+            is_password_valid = valid_password(new_password)
+            if (is_password_valid == "Password is weak"):
+                return jsonify({"error": "Password is weak"}), 403
+            current_user.password = bcrypt.generate_password_hash(new_password)
+            #save changes
+            db.session.commit()
+            return jsonify({
+                "success": "The password has changed successfully"
+            }, 200)
+
+        else:
+            return jsonify({
+                "error": "The password doesn't match the confirmed password"
+            }, 409)
+    else:
+        return jsonify({
+            "error": "The email or the current password doesn't match"
+        }, 409)

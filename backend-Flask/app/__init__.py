@@ -37,7 +37,7 @@ def create_app():
         db.create_all()
 
 
-    # Regiter the auth blueprints
+    # Register the auth blueprints
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(docs_blueprint, url_prefix='/docs')
     app.register_blueprint(users_blueprint, url_prefix='/users')
